@@ -11,7 +11,7 @@ from addon.decorators import language_scanner
 
 @language_scanner
 def index(request):
-    # request.headers
+
     context = {
 
     }
