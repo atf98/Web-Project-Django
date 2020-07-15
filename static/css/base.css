@@ -1,0 +1,12 @@
+/* Global Custom */
+body{
+    padding: 60px;
+}
+
+/* Navbar Custom */
+.navbar-dark .navbar-nav .nav-link{
+    color: white;
+}
+.lang-setter{
+    font-weight: bold;
+}

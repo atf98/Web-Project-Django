@@ -1,0 +1,53 @@
+{% load i18n static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+
+    <!-- Adding Bootstrap CSS -->
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_language_info for LANGUAGE_CODE as CURR_LANGUAGE_CODE %}
+    {% if CURR_LANGUAGE_CODE.bidi %}
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-rtl.min.css' %}">
+        <style>
+        *{
+            direction: rtl;
+        }
+        </style>
+    {% else %}
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    {% endif %}
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {% block style %}
+
+    {% endblock %}
+
+</head>
+<body>
+
+{% block content %}
+
+{% endblock %}
+
+<!-- Adding JQuery & popper Javascript -->
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<!-- Adding Bootstrap Javascript -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+{% block script %}
+
+{% endblock %}
+
+</body>
+</html>
