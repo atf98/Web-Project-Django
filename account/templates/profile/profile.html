@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+    {{ user.first_name }} {{ user.last_name }}
+{% endblock %}
+
+
+{% block content %}
+    {% include 'base/navbar.html' %}
+    <div class="container-fluid p-0">
+        <div class="row p-0">
+            <div class="col-12">
+                <div class="w-100 h-50 border-bottom shadow cover-pic" style="background-image: url({{ user.cover_pic.url }});"></div>
+            </div>
+            <div class="col-3 position-absolute ml-auto mr-auto mt-4 p-2 div-profile-pic">
+                <img class="rounded-circle shadow w-75 profile-pic" src="{{ user.profile_pic.thumbnail.url }}" alt="profile image">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}
+

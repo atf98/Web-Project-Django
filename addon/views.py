@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.utils import translation
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
 
 from web_project import settings
 from addon.models import GlobalSetting
@@ -13,10 +14,9 @@ def set_language(request):
         request.session['preferred_language'] = language = request.POST['language']
         request.session.save()
         translation.activate(language)
-        print(request.session.session_key)
         if request.user.is_authenticated:
             user_token = request.user.global_token
-            if not GlobalSetting.objects.get(token=user_token):
+            if not GlobalSetting.objects.filter(token=user_token).exists():
                 GlobalSetting.objects.create(
                     token=user_token,
                     language=language
@@ -36,5 +36,4 @@ def set_language(request):
                     token=session_token,
                     language=language
                 )
-
-    return redirect(request.POST['next'])
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))

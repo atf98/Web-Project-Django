@@ -3,14 +3,15 @@ from django.conf.urls.static import static
 
 from web_project import settings
 from account.views import (
-    index, about
+    index, about, profile
 )
 
 app_name = 'account'
 
 urlpatterns = [
     path('', index, name='home'),
-    path('about/', about, name='about')
+    path('about/', about, name='about'),
+    path('profile/<int:id>/', profile, name='profile'),
 ]
 
 if settings.DEBUG:

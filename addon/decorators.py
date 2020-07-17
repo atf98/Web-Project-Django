@@ -13,6 +13,9 @@ def language_scanner(function):
             if not request.user.is_authenticated and not GlobalSetting.objects.filter(
                     token=request.session.session_key).exists():
                 return function(request, *args, **kwargs)
+            elif request.user.is_authenticated and not GlobalSetting.objects.filter(
+                    token=request.user.global_token).exists():
+                return function(request, *args, **kwargs)
             elif GlobalSetting.objects.filter(token=request.session.session_key).exists():
                 addon = get_object_or_404(GlobalSetting, token=request.session.session_key)
             else:
