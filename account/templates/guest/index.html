@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-{% load i18n %}
+{% load static i18n %}
 
 {% block title %}
     {% trans 'Website' %}
@@ -7,5 +7,119 @@
 
 {% block content %}
     {% include 'base/navbar.html' %}
+    <div class="jumbotron fixed-banner rounded-0">
+        <div class="fixed-banner-image-wrapper">
+            <img src="{% static 'images/searchbar-background.png' %}" alt="property">
+        </div>
+        <div class="container">
+            <div class="text-center">
+                <div class="pb-3">
+                    <h1 class="display-3 mb-0">{% trans 'Find A Job' %}</h1>
+                    <p class="lead">{% trans 'With WebsiteName you can quickly find your Dream Job!' %}</p>
+                </div>
+                <div class="input-group w-100">
+                    <div class="w-100">
+                        <form class="card card-sm">
+                            <div class="card-body row no-gutters align-items-center p-3">
+                                <div class="col-auto">
+                                    <i class="fas fa-search h4 text-body"></i>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control form-control-lg form-control-borderless"
+                                           type="search" placeholder="Search topics or keywords">
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-lg" type="submit"><i class="fi-xnsuhl-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 mb-5">
+                <h2>What We Do</h2>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi
+                    soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam.
+                    Repellat explicabo, maiores!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur
+                    magni in nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt
+                    voluptate. Voluptatum.</p>
+                <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+            </div>
+            <div class="col-md-4 mb-5">
+                <h2>Contact Us</h2>
+                <hr>
+                <address>
+                    <strong>Start Bootstrap</strong>
+                    <br>3481 Melrose Place
+                    <br>Beverly Hills, CA 90210
+                    <br>
+                </address>
+                <address>
+                    <abbr title="Phone">P:</abbr>
+                    (123) 456-7890
+                    <br>
+                    <abbr title="Email">E:</abbr>
+                    <a href="mailto:#">name@example.com</a>
+                </address>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <img class="card-img-top" src="https://placehold.it/300x200" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse
+                            necessitatibus neque sequi doloribus.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Find Out More!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <img class="card-img-top" src="https://placehold.it/300x200" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse
+                            necessitatibus neque sequi doloribus totam ut praesentium aut.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Find Out More!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <img class="card-img-top" src="https://placehold.it/300x200" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse
+                            necessitatibus neque.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Find Out More!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    {% include 'base/footer.html' %}
 {% endblock %}
 

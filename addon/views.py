@@ -10,8 +10,8 @@ from uuid import uuid3
 
 
 def set_language(request):
-    if request.method == 'POST':
-        request.session['preferred_language'] = language = request.POST['language']
+    if request.method == 'GET':
+        request.session['preferred_language'] = language = request.GET['language']
         request.session.save()
         translation.activate(language)
         if request.user.is_authenticated:

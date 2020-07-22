@@ -1,0 +1,105 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+
+{% block title %}
+    Registration - WebsiteName
+{% endblock %}
+
+
+{% block style %}
+
+{% endblock %}
+
+
+{% block content %}
+    {% include 'base/navbar.html' %}
+    <div class="container content">
+        <div class="row mt-5">
+            <div class="col-6 pr-0">
+                <div class="card rounded-0">
+                    <div id="WorkerFormBtn" class="card-header p-5 text-right title-card active-title">
+                        Personal Account <span>(Search for Work)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 pl-0">
+                <div class="card rounded-0">
+                    <div id="CompanyFormBtn" class="card-header p-5 text-left title-card">
+                        Company Account <span>(Search for Workers)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                {% for key, value in forms.items %}
+                    <div id="{{ key }}" class="{{ value.status }} animate__animated">
+                        <div class="card card-register mx-autocol-md-8 rounded-0">
+                            <div class="card-header"><h3>{{ value.title }}</h3></div>
+                            <div class="card-body">
+                                <form action="{% url 'account:register' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_type" value="{{ key }}">
+                                    {% for foo in value.form %}
+                                        {% if foo.field.widget.attrs.data_column %}
+                                            {% if foo.field.widget.attrs.first %}
+                                                <div class="form-group {{ foo.field.widget.attrs.data_type }}">
+                                                <div class="form-row">
+                                            {% endif %}
+                                        <div class="col-md-{{ foo.field.widget.attrs.data_column }}">
+                                            <div class="form-label-group">
+                                                <label for="{{ foo.id_for_label }}">{{ foo.label }}</label>
+                                                {{ foo }}
+                                                <small style="color: gray;">{{ foo.help_text }}</small>
+                                                {% for error in foo.errors %}
+                                                    <small style="color: red;">{{ error|escape }}</small>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        {% if foo.field.widget.attrs.last %}
+                                            </div>
+                                            </div>
+                                        {% endif %}
+                                        {% else %}
+                                            <div class="form-group {{ foo.field.widget.attrs.data_type }}">
+                                                <label for="{{ foo.id_for_label }}">{{ foo.label }}</label>
+                                                {{ foo }}
+                                                <small style="color: gray;">{{ foo.help_text }}</small>
+                                                {% for error in foo.errors %}
+                                                    <small style="color: red;">{{ error|escape }}</small>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                    <button type="submit"
+                                            class="btn btn-primary btn-block">{% trans 'Register' %}</button>
+                                </form>
+                                <div class="text-center">
+                                    <a class="d-block medium" href="">{% trans 'Forgot Password?' %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $("#WorkerFormBtn, #CompanyFormBtn").click(function(){
+            $('#workerForm, #companyForm').toggleClass('inactive-title-card active-title-card')
+            if ($('#WorkerFormBtn').hasClass('active-title')){
+                $('#WorkerFormBtn').removeClass('active-title')
+                $('#CompanyFormBtn').addClass('active-title')
+            }else{
+                $('#WorkerFormBtn').addClass('active-title')
+                $('#CompanyFormBtn').removeClass('active-title')
+            }
+
+        })
+    </script>
+{% endblock %}
+

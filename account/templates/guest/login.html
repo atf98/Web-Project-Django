@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+
+{% block title %}
+    Login - WebsiteName
+{% endblock %}
+
+
+{% block style %}
+
+{% endblock %}
+
+
+{% block content %}
+    {% include 'base/navbar.html' %}
+    <div class="container content">
+        <div class="row">
+            <div class="card card-login mx-auto mt-5 col-md-8 col-lg-6">
+                <div class="card-header"><h3>{% trans 'Login' %}</h3></div>
+                <div class="card-body">
+
+                    <form action="{% url 'account:login' %}" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <button type="submit" class="btn btn-primary btn-block mt-3">{% trans 'Login' %}</button>
+                    </form>
+                    <div class="text-center">
+                        <a class="d-block medium" href="">{% trans 'Forgot Password?' %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}
+

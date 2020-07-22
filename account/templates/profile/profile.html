@@ -1,20 +1,189 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 
 {% block title %}
-    {{ user.first_name }} {{ user.last_name }}
+    {% if request.user.is_company %}
+        {{ request.user.company.get_full_name }}
+    {% else %}
+        {{ request.user.worker.get_full_name }}
+    {% endif %} - WebsiteName
+{% endblock %}
+
+
+{% block style %}
+    <!-- include summernote css -->
+    <link href="{% static 'css/summernote.min.css' %}" rel="stylesheet">
 {% endblock %}
 
 
 {% block content %}
     {% include 'base/navbar.html' %}
-    <div class="container-fluid p-0">
-        <div class="row p-0">
-            <div class="col-12">
-                <div class="w-100 h-50 border-bottom shadow cover-pic" style="background-image: url({{ user.cover_pic.url }});"></div>
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="top-navbar col-md-3">
+                <div class="card mb-2">
+                    {% if user.is_worker %}
+                        <img src="{{ user.cover_pic.url }}"
+                             class="card-img cover-photo" alt="Cover">
+                    {% else %}
+                        <div class="jumbotron fixed-banner rounded-0">
+                            <div class="fixed-banner-image-wrapper" style="opacity: 1">
+                                <img src="{{ user.cover_pic.url }}"
+                                     class="card-img cover-photo" alt="Cover">
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="card-body mt-n5">
+                        <div class="d-flex align-items-center justify-content-center bg-light mb-2 p-2">
+                            <div class="author-img">
+                                <img src="{{ user.profile_pic.url }}" alt="Person"
+                                     class="img-fluid rounded-circle mr-1" style="width:55px">
+                            </div>
+                            <div class="author-info">
+                                <p class="lead mb-0 font-weight-bolder">
+                                    {% if user.is_company %}
+                                        {{ user.company.get_short_name }}
+                                    {% else %}
+                                        {{ user.worker.get_short_name }}
+                                    {% endif %}
+                                    <a href="#" class="social social-dribbble">
+                                        <svg viewBox="0 0 20 20" width="10%" xmlns="http://www.w3.org/2000/svg"
+                                             clip-rule="evenodd"
+                                             stroke-linejoin="round" stroke-miterlimit="1.414">
+                                            <path d="M19.404,6.65l-5.998-5.996c-0.292-0.292-0.765-0.292-1.056,0l-2.22,2.22l-8.311,8.313l-0.003,0.001v0.003l-0.161,0.161c-0.114,0.112-0.187,0.258-0.21,0.417l-1.059,7.051c-0.035,0.233,0.044,0.47,0.21,0.639c0.143,0.14,0.333,0.219,0.528,0.219c0.038,0,0.073-0.003,0.111-0.009l7.054-1.055c0.158-0.025,0.306-0.098,0.417-0.211l8.478-8.476l2.22-2.22C19.695,7.414,19.695,6.941,19.404,6.65z M8.341,16.656l-0.989-0.99l7.258-7.258l0.989,0.99L8.341,16.656z M2.332,15.919l0.411-2.748l4.143,4.143l-2.748,0.41L2.332,15.919z M13.554,7.351L6.296,14.61l-0.849-0.848l7.259-7.258l0.423,0.424L13.554,7.351zM10.658,4.457l0.992,0.99l-7.259,7.258L3.4,11.715L10.658,4.457z M16.656,8.342l-1.517-1.517V6.823h-0.003l-0.951-0.951l-2.471-2.471l1.164-1.164l4.942,4.94L16.656,8.342z"></path>
+                                        </svg>
+                                    </a>
+                                </p>
+
+                            </div>
+                        </div>
+                        <p class="card-text text-center">{{ user.bio }}</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between pr-5 pl-5">
+                        {% if user.facebook_url %}
+                            <a href="{{ user.facebook_url }}" class="social social-facebook text-dark">
+                                <i class="fi-xnsuxl-facebook"></i>
+                            </a>
+                        {% endif %}
+                        {% if user.linkedin_url %}
+                            <a href="{{ user.linkedin_url }}" class="social social-linkedin text-dark">
+                                <i class="fi-xnsuxl-linkedin"></i>
+                            </a>
+                        {% endif %}
+                        {% if user.twitter_url %}
+                            <a href="{{ user.twitter_url }}" class="social social-twitter text-dark">
+                                <i class="fi-xnsuxl-twitter"></i>
+                            </a>
+                        {% endif %}
+                        {% if user.github_url %}
+                            <a href="{{ user.github_url }}" class="social social-github text-dark">
+                                <i class="fi-xnsuxl-github-alt"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"></h4>
+                    </div>
+                    <div class="p-2">
+                        <div class="row px-2">
+                            <div class="col-4 p-1">
+                                <a href="#">
+                                    <img src="" alt="Recent photo"
+                                         class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-3 position-absolute ml-auto mr-auto mt-4 p-2 div-profile-pic">
-                <img class="rounded-circle shadow w-75 profile-pic" src="{{ user.profile_pic.thumbnail.url }}" alt="profile image">
+            <div class="col-md-6">
+                <p class="lead my-4 text-center text-muted"><i class="material-icons align-middle">today</i> Today</p>
+                <div class="card card-profile--activity">
+                    {% for application in user.application_set.all %}
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <img src="{{ user.profile_pic.url }}" alt="Person" class="rounded-circle mr-2"
+                                     width="40">
+                                <div class="media-body">
+                                    <p class="card-text mb-0">
+                                        <a href="{% url 'account:profile' user.id %}">
+                                            {% if user.is_company %}
+                                                {{ user.company.get_full_name }}
+                                            {% else %}
+                                                {{ user.worker.get_full_name }}
+                                            {% endif %}
+                                        </a> add new application
+                                    </p>
+                                    <p class="card-text text-muted">
+                                        {{ application.created_at|timesince }}
+                                        <span>-</span> {{ application.place_name }}
+                                    </p>
+                                </div>
+                                {% if request.user == application.user %}
+                                    <a href="#" class="btn btn-white btn-sm" data-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="material-icons align-middle text-muted">more_horiz</i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="{% url 'application:edit' application.id %}">Edit Application</a>
+                                        <a class="dropdown-item" href="{% url 'application:delete' application.id %}">Delete Application</a>
+                                        <hr>
+                                        <a class="dropdown-item" href="{% url 'application:show_apply' application.id %}">Show Applies</a>
+                                        <a class="dropdown-item" href="{% url 'application:add_question' application.id %}">Add Question</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <hr>
+                            <div class="card-body lead text-center">
+                                <i class="material-icons md-48 align-middle mb-3">work</i>
+                                <p class="card-text">
+                                    <a href="{% url 'application:detail' application.id %}">
+                                        {{ application.title }}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <div class="card-title">Last Application Applies</div>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Refresh">
+                            <i class="material-icons align-middle md-18 text-muted">sync</i>
+                        </a>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for application in applications %}
+                            <li class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                                <div class="media align-items-center">
+                                    <i class="material-icons md-14 align-middle mr-2 text-success">lens</i>
+                                    <img src="{{ application.cover_pic.url }}" class="img-fluid mr-1"
+                                         width="40" height="50" alt="User1">
+                                    <div class="media-body lh-1">
+                                        <a href="{% url 'application:detail' application.id %}">{{ application.title }}</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <a href="#" class="btn btn-white btn-sm" data-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="material-icons align-middle md-18 text-muted">message</i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <h6 class="dropdown-header">Assignments</h6>
+                                        <a class="dropdown-item" href="#">Completed</a>
+                                        <a class="dropdown-item" href="#">Incompleted</a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -22,6 +191,13 @@
 
 
 {% block script %}
+    <!-- include summernote js -->
+    <script src="{% static 'js/summernote.min.js' %}"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote();
+        });
+    </script>
 {% endblock %}
 

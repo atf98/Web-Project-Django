@@ -1,31 +1,31 @@
 {% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_language_info for LANGUAGE_CODE as CURR_LANGUAGE_CODE %}
+
 <!doctype html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>
-        {% block title %}
 
-        {% endblock %}
-    </title>
+    <title>{% block title %}{% endblock %}</title>
 
     <!-- Adding Bootstrap CSS -->
-    {% get_current_language as LANGUAGE_CODE %}
-    {% get_language_info for LANGUAGE_CODE as CURR_LANGUAGE_CODE %}
     {% if CURR_LANGUAGE_CODE.bidi %}
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-rtl.min.css' %}">
         <style>
-        *{
-            direction: rtl;
-        }
+            * {
+                direction: rtl;
+            }
         </style>
     {% else %}
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     {% endif %}
 
+    <link rel="stylesheet" href="{% static 'css/material-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     {% block style %}
@@ -33,17 +33,76 @@
     {% endblock %}
 
 </head>
-<body>
+<body {% if CURR_LANGUAGE_CODE.bidi %}dir="rtl"{% endif %}>
+{% if messages %}
+    <div class="row">
+        <div class="col-sm-12 col-sm-offset-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} rounded-0" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
 
+    </div>
+{% endif %}
 {% block content %}
 
 {% endblock %}
 
+<div id="overlay" onclick="off()"></div>
 <!-- Adding JQuery & popper Javascript -->
 <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    $(".sidebar-dropdown > a").click(function () {
+        $(".sidebar-submenu").slideUp(200);
+        if (
+            $(this)
+                .parent()
+                .hasClass("active")
+        ) {
+            $(".sidebar-dropdown").removeClass("active");
+            $(this)
+                .parent()
+                .removeClass("active");
+        } else {
+            $(".sidebar-dropdown").removeClass("active");
+            $(this)
+                .next(".sidebar-submenu")
+                .slideDown(200);
+            $(this)
+                .parent()
+                .addClass("active");
+        }
+    });
+
+    $("#close-sidebar").click(function () {
+        $(".page-wrapper").toggleClass("toggled");
+        $("#overlay").toggle()
+    });
+    $("#show-sidebar").click(function (e) {
+        e.preventDefault()
+        $(".page-wrapper").toggleClass("toggled");
+        $("#overlay").toggle()
+    });
+    $("#overlay").click(function (e) {
+        e.preventDefault()
+        $(".page-wrapper").toggleClass("toggled");
+        $("#overlay").toggle()
+    });
+
+
+</script>
+
+<script src="{% static 'js/material-design-kit.js' %}"></script>
+<script src="{% static 'js/friconix.js' %}"></script>
 <!-- Adding Bootstrap Javascript -->
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
 
 {% block script %}
 

@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %}
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_language_info for LANGUAGE_CODE as CURR_LANGUAGE_CODE %}
+{% block title %}
+
+{% endblock %}
+
+
+{% block style %}
+
+{% endblock %}
+
+
+{% block content %}
+    {% include 'base/navbar.html' %}
+    <div class="container">
+        <div class="row">
+            <h1></h1>
+            <div class="container pt-4 pb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            {{ application.title }}
+                        </h4>
+                    </div>
+                    <div class="py-4">
+                        <div class="table-responsive">
+                            <table id="data-table" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Apples ID</th>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Take Question?</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for apply in applies %}
+                                    <tr class="table-row-hovered" onclick="goToApply({{ apply.id }})">
+                                        <td>{{ apply.id }}</td>
+                                        <td>{{ apply.user.id }}</td>
+                                        <td>{{ apply.user.worker.get_full_name }}</td>
+                                        <td>
+                                            {% if takers %}
+                                                {% for taker in takers %}
+                                                    {% if taker.apply.id == apply.id %}
+                                                        {{ taker.question.question_text }}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                There is no answered Question
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if apply.is_all_filled %}
+                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                      title="Completed Apply" class="material-icons bg-success text-white">done</span>
+                                            {% else %}
+                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                      title="Uncompleted Apply" class="material-icons bg-danger text-white">clear</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'base/footer.html' %}
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'js/datatable.bootstrap4.js' %}"></script>
+
+    {% if CURR_LANGUAGE_CODE.bidi %}
+        <script>
+            $('#data-table').dataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Arabic.json"
+                }
+            });
+        </script>
+
+    {% else %}
+        <script>
+            $('#data-table').dataTable();
+        </script>
+
+    {% endif %}
+    <script>
+        function goToApply(id=null) {
+            window.location.replace("/application/complete-apply/"+id+"/");
+        };
+    </script>
+
+{% endblock %}

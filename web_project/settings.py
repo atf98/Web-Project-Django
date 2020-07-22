@@ -1,4 +1,5 @@
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,8 +31,10 @@ INSTALLED_APPS = [
     # Created APPs
     'account',
     'addon',
+    'application',
 
     # Third Party APPs
+    'django_countries',
 ]
 
 
@@ -100,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ar'
 LANGUAGES = [
     ('en-us', 'English'),
     ('ar', 'Arabic'),
@@ -131,3 +134,20 @@ LOCALE_PATHS = [
 ]
 
 AUTH_USER_MODEL = 'account.Account'
+
+LOGIN_REDIRECT_URL = 'account:home'
+LOGOUT_REDIRECT_URL = 'account:home'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ahmadtariqf@gmail.com'
+EMAIL_HOST_PASSWORD = 'fwujtdwzzhrxuawk'
+EMAIL_PORT = 587
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'secondary',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
