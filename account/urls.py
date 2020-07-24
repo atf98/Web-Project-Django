@@ -5,7 +5,7 @@ from web_project import settings
 from account.views import (
     index, about, profile,
     LOGIN, LOGOUT, REGISTER,
-    activate
+    activate, change_password, update_profile
 )
 
 app_name = 'account'
@@ -18,6 +18,8 @@ urlpatterns = [
     path('login/', LOGIN, name='login'),
     path('logout/', LOGOUT, name='logout'),
     path('register/', REGISTER, name='register'),
+    path('update-password/', change_password, name='update-password'),
+    path('update-profile/', update_profile, name='update-profile'),
 
 
     # Functional URLs

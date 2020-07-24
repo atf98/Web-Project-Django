@@ -17,9 +17,9 @@
                 {% csrf_token %}
                 <h2>
                     <a href="{% url 'application:detail' application.id %}">
-                        {{ application.title }} (This view to edit your Application)
+                        {{ application.title }} {% trans '(This view to edit your Application)' %}
                     </a>
-                </h2>
+                </h2>   
                 {% for foo in form %}
                     {% if foo.field.widget.attrs.data_column %}
                         {% if foo.field.widget.attrs.first %}
@@ -54,20 +54,20 @@
                 {% endfor %}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input id="TextAn" type="radio" class="form-check-input" name="question_type" value="text" checked>Text
-                        Answer
+                        <input id="TextAn" type="radio" class="form-check-input" name="question_type" value="text" checked>
+                        {% trans 'Text Answer' %}
                     </label>
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
                         <input id="Multiple" type="radio" class="form-check-input" name="question_type"
-                               value="multiple">Multiple
-                        Choice
+                               value="multiple">
+                        {% trans 'Multiple Choice' %}
                     </label>
                 </div>
                 <hr/>
                 <div id="TextDiv">
-                    <label for="TextAnswer">Text Answer</label>
+                    <label for="TextAnswer">{% trans 'Text Answer' %}</label>
                     <input type="text" id="TextAnswer" class="form-control" name="text_answer">
                 </div>
                 <div id="ChoiceDiv">
@@ -100,7 +100,7 @@
                 </div>
                 <hr/>
 
-                <button type="submit" class="btn btn-primary btn-block">Add Question</button>
+                <button type="submit" class="btn btn-primary btn-block">{% trans 'Add Question' %}</button>
             </form>
         </div>
     </div>

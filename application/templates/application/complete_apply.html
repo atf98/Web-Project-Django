@@ -2,67 +2,62 @@
 {% load static %}
 
 {% block title %}
-
+    {{ apply.user.worker.get_full_name }} {% trans 'Apply for' %} {{ apply.application.title }} - {% trans 'Company View' %}
 {% endblock %}
-
-{% block style %}
-
-{% endblock %}
-
 
 {% block content %}
     {% include 'base/navbar.html' %}
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-12">
-                <h3>This is {{ apply.user.worker.get_full_name }} applie for application {{ apply.application.id }}</h3>
+                <h3>{% trans 'This is' %} {{ apply.user.worker.get_full_name }} {% trans 'apply for application' %} {{ apply.application.id }}</h3>
                 <hr/>
             </div>
             <form class="col-12" action="" method="post">
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="">Full Name</label>
+                            <label for="">{% trans 'Full Name' %}</label>
                             <input class="form-control" type="text" disabled
                                    value="{{ apply.user.worker.get_full_name }}">
-                            <small style="color: gray;">Not editable</small>
+                            <small style="color: gray;">{% trans 'Not editable' %}</small>
                         </div>
                         <div class="form-group">
-                            <label for="">Job Title</label>
+                            <label for="">{% trans 'Job Title' %}</label>
                             <input class="form-control" type="text" disabled value="{{ apply.user.worker.birthday }}">
-                            <small style="color: gray;">Not editable</small>
+                            <small style="color: gray;">{% trans 'Not editable' %}</small>
                         </div>
                         <div class="form-group">
-                            <label for="">City</label>
+                            <label for="">{% trans 'City' %}</label>
                             <input class="form-control" type="text" disabled value="{{ apply.user.city }}">
-                            <small style="color: gray;">Not editable</small>
+                            <small style="color: gray;">{% trans 'Not editable' %}</small>
                         </div>
                         <div class="form-group">
-                            <label for="">Country</label>
+                            <label for="">{% trans 'Country' %}</label>
                             <input class="form-control" type="text" disabled value="{{ apply.user.country }}">
-                            <small style="color: gray;">Not editable</small>
+                            <small style="color: gray;">{% trans 'Not editable' %}</small>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="">Nationality</label>
+                            <label for="">{% trans 'Nationality' %}</label>
                             <input class="form-control" type="text" disabled
                                    value="{{ apply.user.worker.nationality }}">
                         </div>
                         <div class="form-group">
-                            <label for="">SSID</label>
+                            <label for="">{% trans 'SSID' %}</label>
                             <input class="form-control" type="text" disabled value="{{ apply.user.worker.ssid }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Application Title</label>
+                            <label for="">{% trans 'Application Title' %}</label>
                             <input class="form-control" type="text" disabled value="{{ apply.application.title }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Job Title</label>
+                            <label for="">{% trans 'Job Title' %}</label>
                             <input class="form-control" type="text" disabled value="{{ apply.application.job_title }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Place</label>
+                            <label for="">{% trans 'Place' %}</label>
                             <input class="form-control" type="text" disabled value="{{ apply.application.place_name }}">
                         </div>
                     </div>
@@ -72,15 +67,10 @@
                         {% csrf_token %}
                         {{ form }}
                     </div>
-                    <button type="submit" class="btn btn-success w-100">Complete And Add Worker Skills</button>
+                    <button type="submit" class="btn btn-success w-100">{% trans 'Complete And Add Worker Skills' %}</button>
                 </div>
             </form>
         </div>
     </div>
     {% include 'base/footer.html' %}
-{% endblock %}
-
-
-{% block script %}
-
 {% endblock %}

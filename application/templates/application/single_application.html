@@ -2,14 +2,8 @@
 {% load i18n filters %}
 
 {% block title %}
-    {{ application.title }}
+    {{ application.title }} - WebsiteName
 {% endblock %}
-
-
-{% block style %}
-
-{% endblock %}
-
 
 {% block content %}
     {% include 'base/navbar.html' %}
@@ -39,19 +33,6 @@
                         <p class="card-text">
                             {{ application.body|safe }}
                         </p>
-                    </div>
-                </div>
-                <div class="card mt-2">
-                    <div class="card-header">
-                        <h4 class="card-title">{% trans 'Benefits' %}</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul class="pl-3 m-0">
-                            <li class="mb-2">
-                                <strong>Privacy</strong> - the apartment is located on the whole 1st floor of the
-                                building.
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <div class="card mt-2">
@@ -119,36 +100,60 @@
                 {% endif %}
                 <div class="card mt-3">
                     <div class="card-header">
-                        <h4>More About This Application</h4>
+                        <h4>{% trans 'More About This Application' %}</h4>
                     </div>
                     <div class="card-body">
                         {% if application.user == request.user %}
-                            <div class="d-inline-flex flex-row justify-content-center text-center">
-                                <a class="btn p-2 btn-primary"
-                                   href="{% url 'application:add_question' application.id %}">Add Question</a>
-                                <a class="btn p-2 btn-primary" href="{% url 'application:show_apply' application.id %}">Show
-                                    Applies</a>
-                            </div>
-                            <div class="d-inline-flex flex-row justify-content-center text-center">
-                                <a class="btn p-2 btn-success" href="{% url 'application:edit' application.id %}">Edit
-                                    Application</a>
-                                <a class="btn p-2 btn-danger" href="{% url 'application:delete' application.id %}">Delete
-                                    Application</a>
+                            <div class="row">
+                                <a class="col-6 btn btn-primary rounded-0 border"
+                                   href="{% url 'application:add_question' application.id %}">
+                                    {% trans 'Add Question' %}
+                                </a>
+                                <a class="col-6 btn btn-primary rounded-0 border"
+                                   href="{% url 'application:show_apply' application.id %}">
+                                    {% trans 'Show Applies' %}
+                                </a>
+                                <a class="col-6 btn btn-primary rounded-0 border"
+                                   href="{% url 'application:edit' application.id %}">
+                                    {% trans 'Edit Application' %}
+                                </a>
+                                <a class="col-6 btn btn-danger rounded-0 border"
+                                   href="{% url 'application:delete' application.id %}">
+                                    {% trans 'Delete Application' %}
+                                </a>
                             </div>
                         {% else %}
-                            {% for question in application.question_set.all %}
-                                {{ question.question_text }} (optional)
-                                {% for choice in question.choice_set.all %}
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="{{ question.id }}"
-                                                   value="{{ choice.choice_text }}">{{ choice.choice_text }}
-                                        </label>
-                                    </div>
+                            <form action="{% url 'application:detail' application.id %}" method="post">
+                                {% if request.user.worker.is_all_filled %}{% csrf_token %}{% endif %}
+                                {% for question in application.question_set.all %}
+                                    {{ question.question_text }} (optional)
+                                    {% if question.choice_set.all %}
+                                        {% for choice in question.choice_set.all %}
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input"
+                                                           name="{{ question.id }}"
+                                                           value="{{ choice.choice_text }}">{{ choice.choice_text }}
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <input type="text" class="form-control"
+                                               name="{{ question.id }}"
+                                               value="">
+                                    {% endif %}
                                 {% endfor %}
-                            {% endfor %}
-                            <hr>
-                            <a href="" class="btn btn-primary w-100">APPLY NOW</a>
+                                <hr>
+
+                                <button type="submit" {% if not request.user.worker.is_all_filled %}disabled{% endif %}
+                                        class="btn btn-primary w-100">{% trans 'APPLY NOW' %}
+                                </button>
+                                {% if not request.user.worker.is_all_filled %}
+                                    <span class="text-muted">{% trans 'You cannot Apply to this Application due to the incomplete Account Information' %}
+                                        <a href="{% url 'account:update-profile' %}">{% trans 'click here' %}</a> {% trans 'to change them!' %}
+                                    </span>
+                                {% endif %}
+                            </form>
                         {% endif %}
                     </div>
                 </div>

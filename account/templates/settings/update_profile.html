@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% load static i18n %}
+
+{% block title %}
+    {{ request.user.username }} - Update Profile
+{% endblock %}
+
+{% block content %}
+    {% include 'base/navbar.html' %}
+
+    <div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-3 mx-auto">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-center bg-light mb-2 p-2">
+                    <div class="author-img col-12">
+                        <img src="{{ request.user.profile_pic.url }}" alt="Person"
+                             class="img-fluid rounded-circle mr-1" style="width:55px">
+                    </div>
+                    <div class="author-info col-12">
+                        <p class="lead mb-0 font-weight-bolder">
+
+                            {% if request.user.is_worker %}
+                                {{ request.user.worker.get_full_name }}
+                            {% else %}
+                                {{ request.user.company.get_short_name }}
+                            {% endif %}
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 mx-auto">
+            <h3>{% trans 'Personal Setting' %}</h3>
+            {{ account }}
+            {% for foo in user %}
+                {{ foo.label }}:
+                {{ foo }}
+            {% endfor %}
+
+            <hr>
+            <h3>{% trans 'Links Settings' %}</h3>
+            {{ social }}
+        </div>
+    </div>
+    </div>
+
+    {% include 'base/footer.html' %}
+{% endblock %}
+

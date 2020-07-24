@@ -74,7 +74,7 @@ class ApplicationNewForm(forms.ModelForm):
                                        'class': 'form-control datepicker',
                                        'type': 'date',
                                    }))
-    cover_pic = forms.ImageField(label=_('Application Cover'), required=False,
+    cover_pic = forms.ImageField(label=_('Application Cover'),
                                  widget=forms.FileInput(attrs={
                                      'id': 'ApplicationCoverInput',
                                      'class': 'form-control',

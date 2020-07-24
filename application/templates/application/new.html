@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Add New Application
+    {% trans 'Add New Application' %}
 {% endblock %}
 
 
@@ -17,7 +17,7 @@
         <div class="row">
             <form class="w-75 m-auto" action="{% url 'application:new' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <h2>Add New Application Form</h2>
+                <h2>{% trans 'Add New Application Form' %}</h2>
                 {% for foo in form %}
                     {% if foo.field.widget.attrs.data_column %}
                         {% if foo.field.widget.attrs.first %}
@@ -52,7 +52,7 @@
 
                 {% endfor %}
 
-                <button type="submit" class="btn btn-primary btn-block">Add Application</button>
+                <button type="submit" class="btn btn-primary btn-block">{% trans 'Add Application' %}</button>
             </form>
         </div>
     </div>
@@ -72,5 +72,4 @@
         });
 
     </script>
-
 {% endblock %}

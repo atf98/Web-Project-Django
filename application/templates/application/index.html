@@ -2,64 +2,36 @@
 {% load static i18n filters %}
 
 {% block title %}
-    Applications
+    {% trans 'Applications' %}
 {% endblock %}
-
 
 {% block content %}
     {% include 'base/navbar.html' %}
     <div class="top-navbar">
-        <div class="jumbotron fixed-banner rounded-0">
-            <div class="fixed-banner-image-wrapper">
-                <img src="{% static 'images/searchbar-background.png' %}" alt="property">
-            </div>
-            <div class="container">
-                <div class="text-center">
-                    <div class="pb-3">
-                        <h1 class="display-3 mb-0">{% trans 'Find A Job' %}</h1>
-                        <p class="lead">{% trans 'With WebsiteName you can quickly find your Dream Job!' %}</p>
-                    </div>
-                    <div class="input-group w-100">
-                        <div class="w-100">
-                            <form class="card card-sm">
-                                <div class="card-body row no-gutters align-items-center p-3">
-                                    <div class="col-auto">
-                                        <i class="fas fa-search h4 text-body"></i>
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control form-control-lg form-control-borderless"
-                                               type="search" placeholder="Search topics or keywords">
-                                    </div>
-                                    <div class="col-auto">
-                                        <button class="btn btn-lg" type="submit"><i class="fi-xnsuhl-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include 'application/search_bar.html' %}
 
         <div class="container">
             <div class="row mb-3">
                 <div class="col-md-4">
                     <div class="d-flex align-self-center">
-                        <span class="mr-2 mt-2">Sort by:</span>
+                        <span class="mr-2 mt-2">{% trans 'Sort by:' %}</span>
                         <select class="custom-select mr-2 w-25" style="line-height: 1.2">
-                            <option selected>Price</option>
-                            <option value="1">Most sold</option>
-                            <option value="2">Most recent</option>
-                            <option value="3">Reviews</option>
+                            <option selected>{% trans 'A-Z' %}</option>
+                            <option value="1">{% trans 'Z-A' %}</option>
+                            <option value="2">{% trans 'Recent' %}</option>
+                            <option value="3">{% trans 'Reviews' %}</option>
                         </select>
-                        <span class="text-muted mr-3 mt-2">250 Results</span>
+                        <span class="text-muted mr-3 mt-2">
+                        {% if count %}
+                            {{ count }} {% trans 'Result(s)' %}
+                        {% endif %}
+                        </span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     {% if request.user.is_company %}
                         <div class="d-flex align-self-end float-right">
-                            <a href="{% url 'application:new' %}" class="btn btn-primary">Add New Application</a>
+                            <a href="{% url 'application:new' %}" class="btn btn-primary">{% trans 'Add New Application' %}</a>
                         </div>
                     {% endif %}
                 </div>
@@ -81,82 +53,89 @@
             </div>
             <div class="row">
                 <div class="container">
-                    <h5 class="section-title h1">{% trans 'Applications' %}</h5>
-                    <div class="row">
-                        <!-- Team member -->
-                        {% for application in applications %}
-                            <div class="col-xs-12 col-sm-6 col-md-4">
-                                <div class="image-flip"> <!--onclick="this.classList.toggle('hover');"-->
-                                    <div class="mainflip">
-                                        <div class="frontside">
-                                            <div class="card">
-                                                <div class="card-body text-center">
-                                                    <p><img class="w-100 p-0"
-                                                            src="{{ application.cover_pic.url }}"
-                                                            alt="card image"></p>
-                                                    <h4 class="card-title">
-                                                        <a class="text-secondary" href="{% url 'application:detail' application.id %}">
-                                                            {{ application.title }}
-                                                        </a>
-                                                    </h4>
-                                                    <ul class="list-unstyled m-0 pr-4 pl-4 pb-3">
-                                                        <li class="d-flex">
-                                                            <i class="material-icons md-18 align-middle mr-2 text-muted">account_circle</i>
-                                                            <span>{{ application.user.company.company_name }}</span>
-                                                        </li>
-                                                        <li class="d-flex mb-1 justify-content-between">
+
+                    {% if applications %}
+                        <h5 class="section-title h1">{% trans 'Applications' %}</h5>
+                        <div class="row">
+                            <!-- Team member -->
+                            {% for application in applications %}
+                                <div class="col-xs-12 col-sm-6 col-md-4">
+                                    <div class="image-flip"> <!--onclick="this.classList.toggle('hover');"-->
+                                        <div class="mainflip">
+                                            <div class="frontside">
+                                                <div class="card">
+                                                    <div class="card-body text-center">
+                                                        <p><img class="w-100 p-0"
+                                                                src="{{ application.cover_pic.url }}"
+                                                                alt="card image"></p>
+                                                        <h4 class="card-title">
+                                                            <a class="text-secondary"
+                                                               href="{% url 'application:detail' application.id %}">
+                                                                {{ application.title }}
+                                                            </a>
+                                                        </h4>
+                                                        <ul class="list-unstyled m-0 pr-4 pl-4 pb-3">
+                                                            <li class="d-flex">
+                                                                <i class="material-icons md-18 align-middle mr-2 text-muted">account_circle</i>
+                                                                <span>{{ application.user.company.company_name }}</span>
+                                                            </li>
+                                                            <li class="d-flex mb-1 justify-content-between">
                                                         <span data-toggle="tooltip" data-placement="bottom"
-                                                              title="Created At: {{ application.created_at }}">
+                                                              title="{% trans 'Created At:' %} {{ application.created_at }}">
                                                             <i class="material-icons md-18 align-middle mr-2 text-muted">schedule</i>
                                                             {{ application.created_at|timesince|upto:',' }}
                                                         </span>
-                                                            <span data-toggle="tooltip" data-placement="bottom"
-                                                                  title="Deadline At: {{ application.deadline }}">
+                                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                                      title="{% trans 'Deadline At:' %} {{ application.deadline }}">
                                                             <i class="material-icons md-18 align-middle mr-2 text-muted">alarm_add</i>
                                                             {{ application.deadline|timeuntil|upto:',' }}
                                                         </span>
-                                                        </li>
+                                                            </li>
 
-                                                        <li class="d-flex mb-1">
-                                                            <i class="material-icons md-18 align-middle mr-2 text-muted">location_on</i>
-                                                            <span>{{ application.place_name }}</span>
-                                                        </li>
-                                                        <li class="d-flex text-left">
-                                                            <i class="material-icons md-18 align-middle mr-2 text-muted">label</i>
-                                                            <span>{{ application.job_title }}</span>
-                                                        </li>
+                                                            <li class="d-flex mb-1">
+                                                                <i class="material-icons md-18 align-middle mr-2 text-muted">location_on</i>
+                                                                <span>{{ application.place_name }}</span>
+                                                            </li>
+                                                            <li class="d-flex text-left">
+                                                                <i class="material-icons md-18 align-middle mr-2 text-muted">label</i>
+                                                                <span>{{ application.job_title }}</span>
+                                                            </li>
 
-                                                    </ul>
-                                                    <div class="card-footer text-center">
-                                                        <a href="{% url 'application:detail' application.id %}"
-                                                           class="btn font-weight-bolder w-100">{% trans 'Read More...' %}</a>
+                                                        </ul>
+                                                        <div class="card-footer text-center">
+                                                            <a href="{% url 'application:detail' application.id %}"
+                                                               class="btn font-weight-bolder w-100">{% trans 'Read More...' %}</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="backside">
-                                            <div class="card">
-                                                <div class="card-body text-center mt-4">
-                                                    <h4 class="card-title">{{ application.title }}</h4>
-                                                </div>
-                                                <div class="card-footer text-center">
-                                                    <a href="{% url 'application:detail' application.id %}"
-                                                       class="btn w-100">{% trans 'Read More...' %}</a>
+                                            <div class="backside">
+                                                <div class="card">
+                                                    <div class="card-body text-center mt-4">
+                                                        <h4 class="card-title">{{ application.title }}</h4>
+                                                    </div>
+                                                    <div class="card-footer text-center">
+                                                        <a href="{% url 'application:detail' application.id %}"
+                                                           class="btn w-100">{% trans 'Read More...' %}</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- ./Team member -->
-                        {% endfor %}
-                    </div>
+                                <!-- ./Team member -->
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {% if not count %}
+                            <h3>{% trans '0 Results !!!' %}</h3>
+                        {% endif %}
+                        <h4>{% trans 'Sorry there is no Applications to show.' %}</h4>
+                    {% endif %}
+
+
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
-{% block script %}
-
-{% endblock %}
-

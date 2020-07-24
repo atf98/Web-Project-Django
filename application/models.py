@@ -11,7 +11,7 @@ from stdimage.models import StdImageField
 from account.models import Account
 from application.models_addon import CRITERIA_CHOICES
 from account.models_addon import UploadToPathAndRename
-from web_project.settings import MEDIA_ROOT
+from web_project.settings import MEDIA_ROOT, MEDIA_URL
 
 
 class Application(models.Model):
@@ -29,8 +29,8 @@ class Application(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     cover_pic = StdImageField(
-        default=os.path.join(MEDIA_ROOT, 'default\\img\\application.png'),
-        upload_to=UploadToPathAndRename(os.path.join(MEDIA_ROOT, 'upload/img', 'application_cover')),
+        default='static/default/img/application.png',
+        upload_to=UploadToPathAndRename('upload/img/application_cover'),
         validators=[
             FileExtensionValidator(['png', 'jpg', 'jpeg', 'PNG', 'JPG']),
             MinSizeValidator(400, 400),
@@ -105,6 +105,7 @@ class QuestionTaker(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     apply = models.ForeignKey(Apply, on_delete=models.CASCADE)
+    answer = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -2,14 +2,8 @@
 {% load i18n %}
 
 {% block title %}
-    Login - WebsiteName
+    {% trans 'Login - WebsiteName' %}
 {% endblock %}
-
-
-{% block style %}
-
-{% endblock %}
-
 
 {% block content %}
     {% include 'base/navbar.html' %}
@@ -31,10 +25,5 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-
-{% block script %}
-
 {% endblock %}
 

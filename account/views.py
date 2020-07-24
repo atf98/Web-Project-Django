@@ -6,17 +6,19 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.decorators import login_required
 
 from account.models import Account
-from account.forms import LoginForm, WorkerRegisterForm, CompanyRegisterForm
+from account.forms import (
+    LoginForm, WorkerRegisterForm, CompanyRegisterForm, UpdatePasswordForm, SocialMediaForm,
+    WorkerUpdateForm, AccountUpdateForm, CompanyUpdateForm
+)
 from account.tokens import account_activation_token
-from web_project import settings
-from addon.models import GlobalSetting
 from addon.decorators import language_scanner
-from application.models import Application
+from application.models import Application, Apply
+
 
 @language_scanner
 def index(request):
@@ -34,15 +36,19 @@ def about(request):
     return render(request, 'guest/about.html', context)
 
 
-@login_required()
+@login_required
 @language_scanner
 def profile(request, id):
     user = get_object_or_404(Account, pk=id)
     context = {
         'user': user,
-        'applications': Application.objects.filter(user=user).order_by('-apply__user__date_joined'),
     }
-    return render(request, 'profile/profile.html', context)
+    if request.user.is_worker:
+        context['applies'] = Apply.objects.filter(user=user).order_by()
+        return render(request, 'profile/profile_worker.html', context)
+    else:
+        context['applications'] = Application.objects.filter(user=user).order_by('-apply__user__date_joined')
+        return render(request, 'profile/profile_company.html', context)
 
 
 @language_scanner
@@ -125,3 +131,41 @@ def activate(request, uidb64, token):
         return redirect('account:home')
     else:
         return HttpResponse('Activation link is invalid!')
+
+
+@login_required
+@language_scanner
+def change_password(request):
+    if request.method == 'POST':
+        form = UpdatePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, _('Your password was successfully updated!'))
+            return redirect('account:update-password')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        form = UpdatePasswordForm(request.user)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'settings/change_password.html', context)
+
+
+@login_required
+@language_scanner
+def update_profile(request):
+    if request.user.is_worker:
+        user = WorkerUpdateForm(instance=request.user.worker)
+    else:
+        user = CompanyUpdateForm(instance=request.user.company)
+    social = SocialMediaForm(instance=request.user)
+    account = AccountUpdateForm(instance=request.user)
+    context = {
+        'social': social,
+        'user': user,
+        'account': account,
+    }
+    return render(request, 'settings/update_profile.html', context)

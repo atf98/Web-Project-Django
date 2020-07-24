@@ -18,7 +18,7 @@ from uuid import uuid4
 from account.models_addon import UploadToPathAndRename
 from account.tasks import process_photo_image
 from account.validators import social_url_checker
-from web_project.settings import MEDIA_ROOT, STATIC_URL
+from web_project.settings import MEDIA_ROOT, STATIC_URL, MEDIA_URL
 
 
 def image_process(file_name, variations, storage):
@@ -105,12 +105,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_company = models.BooleanField(default=False)
-    is_worker = models.BooleanField(default=True)
+    is_worker = models.BooleanField(default=False)
     # Generated token for user to be used in Global, generated using uuid4
     global_token = models.CharField(max_length=255, default=uuid4)
     profile_pic = StdImageField(
-        default=os.path.join(MEDIA_ROOT, 'default\\img\\profile.png'),
-        upload_to=UploadToPathAndRename(os.path.join(MEDIA_ROOT, 'upload/img', 'profile')),
+        default='static/default/img/profile.png',
+        upload_to=UploadToPathAndRename('upload/img/profile'),
         validators=[
             FileExtensionValidator(['png', 'jpg', 'jpeg', 'PNG', 'JPG']),
             MinSizeValidator(300, 300),
@@ -124,8 +124,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
         # delete_orphans=True
     )
     cover_pic = StdImageField(
-        default=os.path.join(MEDIA_ROOT, 'default\\img\\cover.png'),
-        upload_to=UploadToPathAndRename(os.path.join(MEDIA_ROOT, 'upload/img', 'cover')),
+        default='static/default/img/cover.png',
+        upload_to=UploadToPathAndRename('upload/img/cover'),
         validators=[
             FileExtensionValidator(['png', 'jpg', 'jpeg', 'PNG', 'JPG']),
             MinSizeValidator(400, 400),
@@ -170,7 +170,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         else:
             expect_list.append('company_name')
         return all(map(
-            lambda x: x[1] is not '' or x[0] in expect_list,
+            lambda x: x[1] is not '' or x[1] is None or x[0] in expect_list,
             self.__dict__.items()
         ))
 
@@ -220,6 +220,12 @@ class Worker(models.Model):
         short_name = '%s %s' % (self.first_name, self.last_name)
         return short_name.strip()
 
+    def is_all_filled(self):
+        return all(map(
+            lambda x: x[1] is not '' and x[1] is not None,
+            self.__dict__.items()
+        ))
+
 
 class Company(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
@@ -241,5 +247,11 @@ class Company(models.Model):
     def get_short_name(self):
         """Return the short name for the user."""
         return self.company_name
+
+    def is_all_filled(self):
+        return all(map(
+            lambda x: x[1] is not '' and x[1] is not None,
+            self.__dict__.items()
+        ))
 
 

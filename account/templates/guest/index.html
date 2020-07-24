@@ -2,43 +2,12 @@
 {% load static i18n %}
 
 {% block title %}
-    {% trans 'Website' %}
+    {% trans 'WebsiteName' %}
 {% endblock %}
 
 {% block content %}
     {% include 'base/navbar.html' %}
-    <div class="jumbotron fixed-banner rounded-0">
-        <div class="fixed-banner-image-wrapper">
-            <img src="{% static 'images/searchbar-background.png' %}" alt="property">
-        </div>
-        <div class="container">
-            <div class="text-center">
-                <div class="pb-3">
-                    <h1 class="display-3 mb-0">{% trans 'Find A Job' %}</h1>
-                    <p class="lead">{% trans 'With WebsiteName you can quickly find your Dream Job!' %}</p>
-                </div>
-                <div class="input-group w-100">
-                    <div class="w-100">
-                        <form class="card card-sm">
-                            <div class="card-body row no-gutters align-items-center p-3">
-                                <div class="col-auto">
-                                    <i class="fas fa-search h4 text-body"></i>
-                                </div>
-                                <div class="col">
-                                    <input class="form-control form-control-lg form-control-borderless"
-                                           type="search" placeholder="Search topics or keywords">
-                                </div>
-                                <div class="col-auto">
-                                    <button class="btn btn-lg" type="submit"><i class="fi-xnsuhl-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'application/search_bar.html' %}
     <!-- Page Content -->
     <div class="container">
 

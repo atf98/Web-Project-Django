@@ -52,8 +52,6 @@
                                 <a href="{% url 'addon:set_language' %}?language={{ language.code }}"
                                    class="dropdown-item{% if language.code == LANGUAGE_CODE %} active{% endif %}">
                                     <img src="
-                                            
-
                                             {% with 'images/languages/'|add:language.code|add:'-flag-xs.png' as flag_image_static %}{% static flag_image_static %}{% endwith %}"
                                          style="width: 25px; vertical-align: middle" alt="English">
                                     {{ language.name_local }}
@@ -106,7 +104,7 @@
                 <div class="sidebar-search">
                     <div>
                         <div class="input-group">
-                            <input type="text" class="form-control search-menu" placeholder="Search...">
+                            <input type="text" class="form-control search-menu" placeholder="{% trans 'Search...' %}">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -139,6 +137,22 @@
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+                        <li class="header-menu">
+                            <span>{% trans 'Settings' %}</span>
+                        </li>
+                        <li>
+                            <a href="{% url 'account:update-profile' %}">
+                                <span>{% trans 'Update Profile Information' %}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account:update-password' %}">
+                                <span>{% trans 'Change Password' %}</span>
+                            </a>
+                        </li>
+                        <li class="header-menu">
+                            <span>{% trans 'More' %}</span>
                         </li>
                         <li>
                             <a href="{% url 'account:logout' %}">

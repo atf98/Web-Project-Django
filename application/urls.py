@@ -2,6 +2,8 @@ from django.urls import path
 from application.views import (
     index, application, new, add_question, delete, edit, show_apply, complete_apply
 )
+from web_project import settings
+from django.conf.urls.static import static
 
 app_name = 'application'
 
@@ -16,3 +18,6 @@ urlpatterns = [
     path('delete/<int:id>/', delete, name='delete'),
     path('edit/<int:id>/', edit, name='edit'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

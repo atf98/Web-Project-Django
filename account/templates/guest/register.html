@@ -2,14 +2,8 @@
 {% load i18n %}
 
 {% block title %}
-    Registration - WebsiteName
+    {% trans 'Registration - WebsiteName' %}
 {% endblock %}
-
-
-{% block style %}
-
-{% endblock %}
-
 
 {% block content %}
     {% include 'base/navbar.html' %}
@@ -18,14 +12,14 @@
             <div class="col-6 pr-0">
                 <div class="card rounded-0">
                     <div id="WorkerFormBtn" class="card-header p-5 text-right title-card active-title">
-                        Personal Account <span>(Search for Work)</span>
+                        {% trans 'Personal Account' %} <span>{% trans '(Search for Work)' %}</span>
                     </div>
                 </div>
             </div>
             <div class="col-6 pl-0">
                 <div class="card rounded-0">
                     <div id="CompanyFormBtn" class="card-header p-5 text-left title-card">
-                        Company Account <span>(Search for Workers)</span>
+                        {% trans 'Company Account' %} <span>{% trans '(Search for Workers)' %}</span>
                     </div>
                 </div>
             </div>
@@ -48,7 +42,7 @@
                                             <div class="form-label-group">
                                                 <label for="{{ foo.id_for_label }}">{{ foo.label }}</label>
                                                 {{ foo }}
-                                                <small style="color: gray;">{{ foo.help_text }}</small>
+                                                <small style="color: gray;">{{ foo.help_text|safe }}</small>
                                                 {% for error in foo.errors %}
                                                     <small style="color: red;">{{ error|escape }}</small>
                                                 {% endfor %}
@@ -62,7 +56,7 @@
                                             <div class="form-group {{ foo.field.widget.attrs.data_type }}">
                                                 <label for="{{ foo.id_for_label }}">{{ foo.label }}</label>
                                                 {{ foo }}
-                                                <small style="color: gray;">{{ foo.help_text }}</small>
+                                                <small style="color: gray;">{{ foo.help_text|safe }}</small>
                                                 {% for error in foo.errors %}
                                                     <small style="color: red;">{{ error|escape }}</small>
                                                 {% endfor %}

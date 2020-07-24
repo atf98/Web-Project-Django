@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Edit Application - {{ application.title }}
+    {% trans 'Edit Application' %} - {{ application.title }}
 {% endblock %}
 
 {% block style %}
@@ -18,7 +18,7 @@
                 {% csrf_token %}
                 <h2>
                     <a href="{% url 'application:detail' application.id %}">
-                        {{ application.title }} (This view to edit your Application)
+                        {{ application.title }} {% trans '(This view to edit your Application)' %}
                     </a>
                 </h2>
                 {% for foo in form %}
@@ -55,7 +55,7 @@
 
                 {% endfor %}
 
-                <button type="submit" class="btn btn-primary btn-block">Edit Application</button>
+                <button type="submit" class="btn btn-primary btn-block">{% trans 'Edit Application' %}</button>
             </form>
         </div>
     </div>

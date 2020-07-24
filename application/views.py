@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
-from addon.decorators import language_scanner
+from addon.decorators import language_scanner, company_required, worker_required
 from application.models import Application, Apply, Question, Choice, QuestionTaker
 from application.forms import ApplicationNewForm, QuestionAddForm, ApplyCompleteForm
 
@@ -12,17 +14,68 @@ def index(request):
     context = {
         'applications': Application.objects.all()
     }
+    if request.GET.get('q'):
+        q = request.GET['q']
+        opt = request.GET['search_option']
+        context.update({
+            'applications': search(request, q, request.GET['search_option']),
+            'opt': opt,
+            'q': q
+        })
+    context.update({'count': 0 if context['applications'] is None else context['applications'].count()})
     return render(request, 'application/index.html', context)
+
+
+def search(r, q, obj):
+    if obj == 'title':
+        return Application.objects.filter(Q(title__contains=q))
+    elif obj == 'month':
+        try:
+            q = int(q)
+        except:
+            pass
+        if type(q) is str:
+            messages.error(r, _('You can\'t use letters while searching for month!'))
+            return
+        return Application.objects.filter(Q(deadline__month=q))
+    elif obj == 'job_title':
+        return Application.objects.filter(Q(job_title__contains=q))
+    elif obj == 'place':
+        return Application.objects.filter(Q(place_name__contains=q))
+    else:
+        return Application.objects.filter(
+            Q(title__contains=q) |
+            Q(deadline__month=q) |
+            Q(body__contains=q) |
+            Q(job_title__contains=q) |
+            Q(place_name__contains=q)
+        )
 
 
 @language_scanner
 def application(request, id):
+    application_info = Application.objects.get(pk=id)
+    question = Question.objects.filter(application=application_info)
+    if request.method == 'POST' and request.user.is_authenticated:
+        if Apply.objects.filter(user=request.user, application=application_info).exists():
+            messages.error(request, _('Sorry You have applied to this application, you can do it once!'))
+        else:
+            apply = Apply.objects.create(user=request.user, application=application_info)
+            print(question)
+            for ques in question:
+                print(request.POST[str(ques.id)])
+                temp = request.POST[str(ques.id)]
+                if temp:
+                    QuestionTaker.objects.create(question=ques, user=request.user, apply=apply, answer=temp)
     context = {
-        'application': Application.objects.get(pk=id)
+        'application': application_info,
+        'question': question,
     }
     return render(request, 'application/single_application.html', context)
 
 
+@login_required
+@company_required
 @language_scanner
 def new(request):
     context = {
@@ -43,6 +96,8 @@ def new(request):
     return render(request, 'application/new.html', context)
 
 
+@login_required
+@company_required
 @language_scanner
 def add_question(request, id):
     app_info = get_object_or_404(Application, pk=id)
@@ -67,6 +122,9 @@ def add_question(request, id):
     return render(request, 'application/add_question.html', context)
 
 
+@login_required
+@company_required
+@language_scanner
 def edit(request, id):
     application_info = Application.objects.get(pk=id)
     if request.method == 'POST':
@@ -80,6 +138,8 @@ def edit(request, id):
     return render(request, 'application/edit.html', context)
 
 
+@login_required
+@company_required
 @language_scanner
 def show_apply(request, id):
     application_info = Application.objects.get(pk=id)
@@ -94,9 +154,21 @@ def show_apply(request, id):
     return render(request, 'application/show_applies.html', context)
 
 
+@login_required
+@company_required
 @language_scanner
 def complete_apply(request, id):
     apply = Apply.objects.get(pk=id)
+    if request.method == 'POST':
+        form = ApplyCompleteForm(request.POST)
+        if form.is_valid():
+            apply.overall_skill = request.POST['overall_skill']
+            apply.managing_skill = request.POST['managing_skill']
+            apply.leading_skill = request.POST['leading_skill']
+            apply.communication_skill = request.POST['communication_skill']
+            apply.english_skill = request.POST['english_skill']
+            apply.save()
+            return redirect('application:show_apply', id=apply.application.id)
     context = {
         'form': ApplyCompleteForm(instance=apply),
         'apply': apply
@@ -104,6 +176,9 @@ def complete_apply(request, id):
     return render(request, 'application/complete_apply.html', context)
 
 
+@login_required
+@company_required(redirect_field_name='/application/')
+@language_scanner
 def delete(request, id):
     Application.objects.get(pk=id).delete()
     return redirect('application:home')
