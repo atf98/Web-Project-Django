@@ -42,10 +42,15 @@
                                             <div class="form-label-group">
                                                 <label for="{{ foo.id_for_label }}">{{ foo.label }}</label>
                                                 {{ foo }}
-                                                <small style="color: gray;">{{ foo.help_text|safe }}</small>
-                                                {% for error in foo.errors %}
-                                                    <small style="color: red;">{{ error|escape }}</small>
-                                                {% endfor %}
+                                                {% if foo.help_text %}
+                                                    <small class="text-muted">{{ foo.help_text|safe }}</small>
+                                                {% endif %}
+                                                {% if foo.errors %}
+                                                    <br>
+                                                    {% for error in foo.errors %}
+                                                        <small style="color: red;">{{ error|escape }}</small>
+                                                    {% endfor %}
+                                                {% endif %}
                                             </div>
                                         </div>
                                         {% if foo.field.widget.attrs.last %}
@@ -56,10 +61,15 @@
                                             <div class="form-group {{ foo.field.widget.attrs.data_type }}">
                                                 <label for="{{ foo.id_for_label }}">{{ foo.label }}</label>
                                                 {{ foo }}
-                                                <small style="color: gray;">{{ foo.help_text|safe }}</small>
-                                                {% for error in foo.errors %}
-                                                    <small style="color: red;">{{ error|escape }}</small>
-                                                {% endfor %}
+                                                {% if foo.help_text %}
+                                                    <small class="text-muted">{{ foo.help_text|safe }}</small>
+                                                {% endif %}
+                                                {% if foo.errors %}
+                                                    <br>
+                                                    {% for error in foo.errors %}
+                                                        <small style="color: red;">{{ error|escape }}</small>
+                                                    {% endfor %}
+                                                {% endif %}
                                             </div>
                                         {% endif %}
 
@@ -78,10 +88,12 @@
             </div>
         </div>
     </div>
+    {% include 'base/footer.html' %}
 {% endblock %}
 
 
 {% block script %}
+
     <script>
         $("#WorkerFormBtn, #CompanyFormBtn").click(function(){
             $('#workerForm, #companyForm').toggleClass('inactive-title-card active-title-card')

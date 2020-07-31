@@ -11,57 +11,16 @@ from account.models import Account, Worker, Company
 
 
 class UserCreationFormExtended(UserCreationForm):
-    email = forms.EmailField(label=_('Email'), label_suffix='*', required=True,
-                             widget=forms.EmailInput(attrs={
-                                 'id': 'EmailInput',
-                                 'class': 'form-control',
-                                 'placeholder': 'Email',
-                             }),
-                             error_messages={
-                                 'required': _('Double check the submitted Email!'),
-                                 'unique': _('This Email is used by another user.'),
-                                 'invalid': _('Email is not look like a one!')
-                             })
-    username = forms.CharField(label=_('Username'), label_suffix='*', required=True,
-                               widget=forms.TextInput(attrs={
-                                   'id': 'UsernameInput',
-                                   'class': 'form-control',
-                                   'placeholder': 'Username',
-                               }),
-                               error_messages={
-                                   'required': _('Double check the submitted Username!'),
-                                   'unique': _('This Username is used by another user.'),
-                                   'invalid': _('Username is not look like a one!')
-                               },
-                               help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'))
-    password1 = forms.CharField(strip=False, label=_('Password'), label_suffix='*', required=True,
-                                widget=forms.PasswordInput(attrs={
-                                    'id': 'PasswordInput',
-                                    'class': 'form-control',
-                                    'placeholder': 'Password',
-                                    'data_column': '6',
-                                    'first': 'true'
-                                }),
-                                error_messages={
-                                    'password_mismatch': _('Passwords are not same.')
-                                },
-                                help_text=_('''
-                                <ul>
-                                <li>Your password can’t be too similar to your other personal information.</li>
-                                <li>Your password must contain at least 8 characters.</li>
-                                <li>Your password can’t be a commonly used password.</li>
-                                <li>Your password can’t be entirely numeric.</li>
-                                </ul>
-                                '''))
-
-    password2 = forms.CharField(strip=False, label=_('Re-Write Password'), label_suffix='*', required=True,
-                                widget=forms.PasswordInput(attrs={
-                                    'id': 'RePasswordInput',
-                                    'class': 'form-control',
-                                    'placeholder': 'Re-Write Passowrd',
-                                    'data_column': '6',
-                                    'last': 'true'
-                                }), help_text=_("Enter the same password as before, for verification."))
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': _('Email')})
+        self.fields['username'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': _('Username')})
+        self.fields['password1'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': _('Password'), 'data_column': '6', 'first': True})
+        self.fields['password2'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': _('Password Confirmation'), 'data_column': '6', 'last': True})
 
     class Meta:
         model = Account
@@ -73,7 +32,7 @@ class WorkerRegisterForm(UserCreationFormExtended):
                                  widget=forms.TextInput(attrs={
                                      'id': 'FirstNInput',
                                      'class': 'form-control',
-                                     'placeholder': 'First Name',
+                                     'placeholder': _('First Name'),
                                      'autofocus': 'autofocus',
                                      'data_type': 'worker_form',
                                      'data_column': '4',
@@ -86,7 +45,7 @@ class WorkerRegisterForm(UserCreationFormExtended):
                                   widget=forms.TextInput(attrs={
                                       'id': 'MiddleNInput',
                                       'class': 'form-control',
-                                      'placeholder': 'Middle Name',
+                                      'placeholder': _('Middle Name'),
                                       'data_column': '4'
                                   }),
                                   error_messages={
@@ -96,7 +55,7 @@ class WorkerRegisterForm(UserCreationFormExtended):
                                 widget=forms.TextInput(attrs={
                                     'id': 'LastNInput',
                                     'class': 'form-control',
-                                    'placeholder': 'Last Name',
+                                    'placeholder': _('Last Name'),
                                     'data_column': '4',
                                     'last': 'true'
                                 }),
@@ -128,7 +87,7 @@ class CompanyRegisterForm(UserCreationFormExtended):
                                    widget=forms.TextInput(attrs={
                                        'id': 'CompanyInput',
                                        'class': 'form-control',
-                                       'placeholder': 'Company Name',
+                                       'placeholder': _('Company Name'),
                                        'data_type': 'company_form',
                                    }),
                                    error_messages={
@@ -155,7 +114,7 @@ class LoginForm(forms.Form):
                              widget=forms.EmailInput(attrs={
                                  'id': 'EmailInput',
                                  'class': 'form-control',
-                                 'placeholder': 'Email address',
+                                 'placeholder': _('Email'),
                                  'required': 'required',
                                  'autofocus': True,
                              }))
@@ -163,13 +122,12 @@ class LoginForm(forms.Form):
                                widget=forms.PasswordInput(attrs={
                                    'id': 'PasswordInput',
                                    'class': 'form-control',
-                                   'placeholder': 'Password',
+                                   'placeholder': _('Password'),
                                    'required': 'required',
                                }))
     error_messages = {
         'invalid_login': _(
-            "Please enter a correct Email and password. Note that both "
-            "fields may be case-sensitive."
+            "Please enter a correct Email and password. Note that both fields may be case-sensitive."
         ),
         'inactive': _("This account is inactive."),
     }
@@ -197,9 +155,9 @@ class UpdatePasswordForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['old_password'].widget.attrs.update(
-            {'class': 'form-control', 'placeholder': 'Old password'})
+            {'class': 'form-control', 'placeholder': _('Old password')})
         self.fields['new_password1'].widget.attrs.update(
-            {'class': 'form-control', 'placeholder': 'New password'})
+            {'class': 'form-control', 'placeholder': _('New password')})
         self.fields['new_password1'].help_text = _('''
         <ul>
         <li>Your password can’t be too similar to your other personal information.</li>
@@ -209,34 +167,24 @@ class UpdatePasswordForm(PasswordChangeForm):
         </ul>
         ''')
         self.fields['new_password2'].widget.attrs.update(
-            {'class': 'form-control', 'placeholder': 'Confirm password'})
+            {'class': 'form-control', 'placeholder': _('Confirm password')})
 
 
 class SocialMediaForm(forms.ModelForm):
-    facebook_url = forms.EmailField(label=_('Facebook Link'),
-                                    widget=forms.EmailInput(attrs={
-                                        'id': 'EmailInput',
-                                        'class': 'form-control',
-                                        'placeholder': 'Email address',
-                                    }))
-    twitter_url = forms.EmailField(label=_('Twitter Link'),
-                                   widget=forms.EmailInput(attrs={
-                                       'id': 'EmailInput',
-                                       'class': 'form-control',
-                                       'placeholder': 'Twitter Link',
-                                   }))
-    linkedin_url = forms.EmailField(label=_('LinkedIn Link'),
-                                    widget=forms.EmailInput(attrs={
-                                        'id': 'EmailInput',
-                                        'class': 'form-control',
-                                        'placeholder': 'LinkedIn Link',
-                                    }))
-    github_url = forms.EmailField(label=_('GitHub Link'),
-                                  widget=forms.EmailInput(attrs={
-                                      'id': 'EmailInput',
-                                      'class': 'form-control',
-                                      'placeholder': 'GitHub Link',
-                                  }))
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['facebook_url'].widget.attrs.update(
+            {'class': 'form-control', 'style': 'direction: ltr;', 'placeholder': _('Facebook URL')})
+        self.fields['twitter_url'].widget.attrs.update(
+            {'class': 'form-control', 'style': 'direction: ltr;', 'placeholder': _('Twitter URL')})
+        self.fields['linkedin_url'].widget.attrs.update(
+            {'class': 'form-control', 'style': 'direction: ltr;', 'placeholder': _('LinkedIn URL')})
+        self.fields['github_url'].widget.attrs.update(
+            {'class': 'form-control', 'style': 'direction: ltr;', 'placeholder': _('GitHub URL')})
+        self.fields['facebook_url'].required = False
+        self.fields['twitter_url'].required = False
+        self.fields['linkedin_url'].required = False
+        self.fields['github_url'].required = False
 
     class Meta:
         model = Account
@@ -246,23 +194,37 @@ class SocialMediaForm(forms.ModelForm):
 class AccountUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['cover_pic'].widget = forms.FileInput(
+            attrs={'class': 'form-control'}
+        )
+        self.fields['profile_pic'].widget = forms.FileInput(
+            attrs={'class': 'form-control'}
+        )
         self.fields['country'].widget.attrs.update(
-            {'class': 'form-control'})
+            {'class': 'form-control', 'data_column': '6', 'first': 'true'})
         self.fields['city'].widget.attrs.update(
-            {'class': 'form-control'})
+            {'class': 'form-control', 'data_column': '6', 'last': 'true'})
         self.fields['cover_pic'].widget.attrs.update(
-            {'class': 'form-control'})
-        self.fields['profile_pic'].widget.attrs.update(
-            {'class': 'form-control'})
+        )
+        self.fields['country'].required = False
+        self.fields['city'].required = False
+        self.fields['cover_pic'].required = False
+        self.fields['profile_pic'].required = False
 
     class Meta:
         model = Account
-        fields = ['cover_pic', 'profile_pic', 'country', 'city']
+        fields = ['profile_pic', 'cover_pic', 'country', 'city']
 
 
 class WorkerUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['birthday'].widget = forms.DateTimeInput(
+            attrs={'class': 'form-control datepicker', 'type': 'date'}
+        )
+        self.fields['ssid'].widget = forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': _('SSID')}
+        )
         self.fields['nationality'].widget.attrs.update(
             {'class': 'form-control'})
         self.fields['first_name'].widget.attrs.update(
@@ -271,22 +233,6 @@ class WorkerUpdateForm(forms.ModelForm):
             {'class': 'form-control'})
         self.fields['last_name'].widget.attrs.update(
             {'class': 'form-control'})
-
-    birthday = forms.DateTimeField(label=_('Birthday'),
-                                   widget=forms.DateTimeInput(attrs={
-                                       'id': 'BirthdayInput',
-                                       'class': 'form-control datepicker',
-                                       'type': 'date',
-                                   }))
-    ssid = forms.CharField(label=_('ssid'), required=True,
-                           widget=forms.TextInput(attrs={
-                               'id': 'FirstNInput',
-                               'class': 'form-control',
-                               'placeholder': 'ssid',
-                           }),
-                           error_messages={
-                               'required': _('Make Sure to fill this input.')
-                           })
 
     class Meta:
         model = Worker
@@ -298,7 +244,32 @@ class CompanyUpdateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['company_name'].widget.attrs.update(
             {'class': 'form-control'})
+        self.fields['company_name'].required = False
 
     class Meta:
         model = Company
         fields = ['company_name']
+
+
+class CoverUpdateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['cover_pic'].widget = forms.FileInput(
+            attrs={'class': 'form-control', 'onchange': 'loadFile(event,"output_cover")'}
+        )
+
+    class Meta:
+        model = Account
+        fields = ['cover_pic']
+
+
+class AvatarUpdateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['profile_pic'].widget = forms.FileInput(
+            attrs={'class': 'form-control', 'onchange': 'loadFile(event,"output_avatar")'}
+        )
+
+    class Meta:
+        model = Account
+        fields = ['profile_pic']

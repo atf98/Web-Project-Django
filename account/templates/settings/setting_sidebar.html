@@ -1,0 +1,41 @@
+{% load i18n %}
+<div class="profile-sidebar">
+    <!-- SIDEBAR USERPIC -->
+    <div class="profile-userpic">
+        <img src="{{ request.user.profile_pic.medium.url }}"
+             class="img-responsive d-none d-md-block" alt="">
+    </div>
+    <div class="profile-usertitle">
+        <div class="profile-usertitle-name">
+                {{ request.user.get_full_name }}
+        </div>
+    </div>
+    <div class="profile-usermenu sidebar-sticky text-center">
+        <ul class="nav flex-column">
+            <li class="active nav-item">
+                <a href="" class="nav-link active">
+                    <i class="fa fa-home"></i>
+                    {% trans 'Account Setting' %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fa fa-user"></i>
+                    {% trans 'Password Setting' %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fa fa-check"></i>
+                    {% trans 'Global Setting' %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fa fa-flag"></i>
+                    {% trans 'Profile Activity' %}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

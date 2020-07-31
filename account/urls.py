@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 
 from web_project import settings
 from account.views import (
-    index, about, profile,
+    index, profile,
     LOGIN, LOGOUT, REGISTER,
     activate, change_password, update_profile
 )
@@ -13,7 +13,6 @@ app_name = 'account'
 urlpatterns = [
     # View URLs
     path('', index, name='home'),
-    path('about/', about, name='about'),
     path('profile/<int:id>/', profile, name='profile'),
     path('login/', LOGIN, name='login'),
     path('logout/', LOGOUT, name='logout'),

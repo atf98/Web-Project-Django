@@ -15,7 +15,22 @@
 
                     <form action="{% url 'account:login' %}" method="post">
                         {% csrf_token %}
-                        {{ form }}
+                        {% for foo in form %}
+                            <div class="form-group {{ foo.field.widget.attrs.data_type }}">
+                                <label for="{{ foo.id_for_label }}">{{ foo.label }}</label>
+                                {{ foo }}
+                                {% if foo.help_text %}
+                                    <small class="text-muted">{{ foo.help_text|safe }}</small>
+                                {% endif %}
+                                {% if foo.errors %}
+                                    <br>
+                                    {% for error in foo.errors %}
+                                        <small style="color: red;">{{ error|escape }}</small>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
                         <button type="submit" class="btn btn-primary btn-block mt-3">{% trans 'Login' %}</button>
                     </form>
                     <div class="text-center">

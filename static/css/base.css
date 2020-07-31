@@ -3,10 +3,14 @@ body{
     padding-top: 56px;
 }
 
+.form-control{
+    border-radius: 0;
+}
+
 .table-row-hovered:hover{
     cursor: pointer;
-    background-color: darkgray !important;
-    color: white;
+    background-color: #ffeeba !important;
+    color: black;
 }
 
 /* Navbar Custom */
@@ -65,6 +69,126 @@ body{
 [data-theme="dark"] .bg-black {
     background-color: #eee !important;
 }
+
+/*profile sidebar style*/
+
+/* Profile container */
+
+
+/* Profile sidebar */
+.position-fixed-side {
+    position: fixed !important
+}
+@media screen and (max-width: 768px) {
+    .position-fixed-side {
+        position: static !important;
+    }
+}
+
+.profile-userpic img {
+    float: none;
+    display: block;
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+.profile-usertitle {
+    text-align: center;
+}
+
+.profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+    margin-right:0;
+}
+
+.profile-usermenu {
+    margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+    border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+    color: #93a3b5;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+    background-color: #fafcfd;
+    color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li.active a:dir(ltr) {
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: -2px;
+}
+.profile-usermenu ul li.active a:dir(rtl) {
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-right: 2px solid #5b9bd1;
+    margin-right: -2px;
+}
+
+/* Profile Content */
+.profile-content {
+    padding: 20px;
+    background: #fff;
+    min-height: 460px;
+}
+
+.nav > li {
+    position: relative;
+    display: block;
+}
+
 
 /*Cards Style*/
 section {
@@ -281,7 +405,7 @@ section {
     vertical-align: middle;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .breadcrumb {
         margin-bottom: 1.25rem;
     }
@@ -465,7 +589,6 @@ section {
 }
 
 .sidebar-wrapper .sidebar-brand > a {
-    text-transform: uppercase;
     font-weight: bold;
     flex-grow: 1;
 }
@@ -482,31 +605,28 @@ section {
     overflow: hidden;
 }
 
-.sidebar-wrapper .sidebar-header .user-pic {
-    float: left;
-    width: 60px;
-    height: 60px;
-    padding: 2px;
-    border-radius: 12px;
-    margin-right: 15px;
-    overflow: hidden;
+.sidebar-wrapper .sidebar-header .user-pic,
+.sidebar-wrapper .sidebar-header .user-info {
+    display: block;
 }
 
 .sidebar-wrapper .sidebar-header .user-pic {
-    float: right;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    padding: 2px;
+    overflow: hidden;
+}
+
+.sidebar-wrapper .sidebar-header .user-info {
+    text-align: center;
+    overflow: hidden;
 }
 
 .sidebar-wrapper .sidebar-header .user-pic img {
     object-fit: cover;
     height: 100%;
     width: 100%;
-}
-
-.sidebar-wrapper .sidebar-header .user-info:dir(ltr) {
-    float: left;
-}
-.sidebar-wrapper .sidebar-header .user-info:dir(rtl) {
-    float: left;
 }
 
 .sidebar-wrapper .sidebar-header .user-info > span {
@@ -664,7 +784,7 @@ section {
 .page-wrapper .page-content {
     display: inline-block;
     width: 100%;
-    padding-left: 0px;
+    padding-left:0;
     padding-top: 20px;
 }
 
@@ -684,14 +804,14 @@ section {
 }
 
 ::-webkit-scrollbar-button {
-    width: 0px;
-    height: 0px;
+    width:0;
+    height:0;
 }
 
 ::-webkit-scrollbar-thumb {
     background: #525965;
-    border: 0px none #ffffff;
-    border-radius: 0px;
+    border:0 none #ffffff;
+    border-radius:0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -704,7 +824,7 @@ section {
 
 ::-webkit-scrollbar-track {
     background: transparent;
-    border: 0px none #ffffff;
+    border:0 none #ffffff;
     border-radius: 50px;
 }
 
@@ -746,7 +866,7 @@ section {
 .chiller-theme .sidebar-wrapper .sidebar-brand > a,
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
 .chiller-theme .sidebar-footer > a {
-    color: #818896;
+    color: #ffffff;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover > a,
@@ -758,7 +878,7 @@ section {
 }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar {
-    color: #bdbdbd;
+    color: #ffffff;
 }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar:hover {
@@ -770,7 +890,7 @@ section {
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus + span,
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
     color: #16c7ff;
-    text-shadow: 0px 0px 10px rgba(22, 199, 255, 0.5);
+    text-shadow:0 0 10px rgba(22, 199, 255, 0.5);
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li a i,
@@ -781,12 +901,12 @@ section {
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu .header-menu span {
-    color: #6c7b88;
+    color: #8b8b8b;
 }
 
 .chiller-theme .sidebar-footer {
     background: #3a3f48;
-    box-shadow: 0px -1px 5px #282c33;
+    box-shadow: 0 -1px 5px #282c33;
     border-top: 1px solid #464a52;
 }
 
@@ -971,3 +1091,89 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
     background-color: #fed136;
 }
 
+/*drag n drop style*/
+#id_file {
+    display: none;
+}
+#id_image {
+    display: none;
+}
+
+
+
+.dragging::before {
+    content: "Drop in this area or Click here to add files";
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    background-color: rgba(255, 255, 0, .3);
+    pointer-events: none;
+}
+
+#fileDrag::before ,
+#imageDrag::before {
+    content: "Drop in this area or Click here to add files";
+}
+
+.remove-before::before {
+    content: none !important;
+}
+#fileDrag ,
+#imageDrag {
+    border: 2px dashed #555;
+    border-radius: 7px;
+    color: #555;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    padding: 3em;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+}
+
+#fileDrag:hover,
+#imageDrag:hover {
+    background: #ddd;
+}
+
+#fileDrag:hover,
+#imageDrag.hover,
+#fileDrag.hover,
+#imageDrag:hover {
+    border-color: #3070A5;
+    border-style: solid;
+    box-shadow: inset 0 3px 4px #888;
+    color: #3070A5;
+}
+
+
+/*search bar navbar style*/
+
+/* search form  */
+
+
+.searchform .btn {
+    color: rgba(255, 255, 255, 1);
+    border: 1px solid transparent;
+}
+
+.searchform .form-control {
+    border: 0;
+    color: #fff;
+    background-color: rgba(200, 200, 200, .1);
+    width: 120px !important;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.searchform .form-control:hover, .searchform .form-control:focus {
+    width: 260px !important;
+}
+
+.searchform .form-control:active{
+    border: none;
+}

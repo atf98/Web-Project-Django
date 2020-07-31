@@ -1,0 +1,61 @@
+{% load i18n %}
+<div class="profile-sidebar">
+    <!-- SIDEBAR USERPIC -->
+    <div class="profile-userpic pt-4 pr-4 pl-4 pb-1"
+         style="background-image: url({{ user.cover_pic.medium.url }}); background-repeat: no-repeat;background-size: cover">
+        <div class="dropdown position-absolute mt-5 m-md-0"
+             style="top: 5px; right: 25px;">
+            <button class="btn border border-secondary rounded-0 text-white mt-4 m-md-0" type="button" id="profileImagesUploader"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            style="background-color: rgba(255,255,255,0.4)">
+                <i class="fi-xnsuxl-camera-solid"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="profileImagesUploader">
+                <a class="dropdown-item" href="" data-toggle="modal" data-target="#coverChangeForm">{% trans 'Upload Cover' %}</a>
+                <a class="dropdown-item" href="" data-toggle="modal" data-target="#avatarChangeForm">{% trans 'Upload Avatar' %}</a>
+                <hr>
+                <a class="dropdown-item" href="" data-toggle="modal" data-target="#deleteForm">{% trans 'Delete' %}</a>
+            </div>
+        </div>
+
+        <img src="{{ user.profile_pic.medium.url }}"
+             class="img-responsive border border-secondary w-50" alt="">
+    </div>
+    <div class="profile-usertitle">
+        <div class="profile-usertitle-name">
+            {{ request.user.get_full_name }}
+        </div>
+        <div class="profile-usertitle-job">
+            <p class="card-text text-center">{{ user.bio }}</p>
+        </div>
+    </div>
+    <div class="profile-usermenu sidebar-sticky">
+
+        <div class="card-footer d-flex justify-content-between">
+            {% if user.facebook_url %}
+                <a href="{{ user.facebook_url }}" class="social social-facebook text-dark"
+                   target="_blank">
+                    <i class="fi-xnsuxl-facebook"></i>
+                </a>
+            {% endif %}
+            {% if user.linkedin_url %}
+                <a href="{{ user.linkedin_url }}" class="social social-linkedin text-dark"
+                   target="_blank">
+                    <i class="fi-xnsuxl-linkedin"></i>
+                </a>
+            {% endif %}
+            {% if user.twitter_url %}
+                <a href="{{ user.twitter_url }}" class="social social-twitter text-dark"
+                   target="_blank">
+                    <i class="fi-xnsuxl-twitter"></i>
+                </a>
+            {% endif %}
+            {% if user.github_url %}
+                <a href="{{ user.github_url }}" class="social social-github text-dark"
+                   target="_blank">
+                    <i class="fi-xnsuxl-github-alt"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

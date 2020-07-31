@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, FileExtensionValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
-from django.core.validators import FileExtensionValidator
+from datetime import datetime
 
 import os
+import datetime
 from stdimage.validators import MinSizeValidator, MaxSizeValidator
 from stdimage.models import StdImageField
 
@@ -13,36 +14,56 @@ from application.models_addon import CRITERIA_CHOICES
 from account.models_addon import UploadToPathAndRename
 from web_project.settings import MEDIA_ROOT, MEDIA_URL
 
+GOOGLE_MAP_LINK = 'https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en#6387158'
+
 
 class Application(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    title = models.CharField(verbose_name=_('title'), max_length=255, validators=[MinLengthValidator(4)],
-                             help_text=_('Title for application at least 4 Char'))
-    body = models.TextField(verbose_name=_('body'), help_text=_('You can use HTML tags to style your body.'))
-    job_title = models.CharField(verbose_name=_('job title'), max_length=255)
-    place_name = models.CharField(verbose_name=_('place name'), max_length=255, default=_('Not specified yet'))
-    latitude = models.DecimalField(verbose_name=_('latitude'), max_digits=10, decimal_places=6, default=None, null=True,
-                                   blank=True)
-    longitude = models.DecimalField(verbose_name=_('longitude'), max_digits=10, decimal_places=6, default=None,
-                                    null=True, blank=True)
-    deadline = models.DateTimeField(verbose_name=_('deadline'))
+    title = models.CharField(
+        verbose_name=_('Title'),
+        max_length=255,
+        validators=[MinLengthValidator(4)],
+        help_text=_('Title for application at least 4 Char')
+    )
+    body = models.TextField(
+        verbose_name=_('Body'),
+        help_text=_('You can use HTML tags to style your body.')
+    )
+    job_title = models.CharField(
+        verbose_name=_('Job Title'),
+        max_length=255
+    )
+    place_name = models.CharField(
+        verbose_name=_('Work City/State'),
+        max_length=255,
+        default=_('Not specified yet'),
+        help_text=_('Or you can place a Marker down in the map and automatically will add place name.')
+    )
+    latitude = models.DecimalField(
+        verbose_name=_('Latitude'),
+        max_digits=30,
+        decimal_places=25,
+        default=None,
+        null=True,
+        blank=True,
+        help_text=_('Mark any place down from the map to get Location Coordinates.')
+    )
+    longitude = models.DecimalField(
+        verbose_name=_('Longitude'),
+        max_digits=30,
+        decimal_places=25,
+        default=None,
+        null=True,
+        blank=True,
+        help_text=_(
+            'Make sure to put the right coordinates (follow this <a href="%s" target="_blank">link</a>)' % GOOGLE_MAP_LINK)
+    )
+    deadline = models.DateTimeField(
+        verbose_name=_('deadline'),
+        help_text=_('Note that the end time will be at the midnight of the day you picked.'),
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    cover_pic = StdImageField(
-        default='static/default/img/application.png',
-        upload_to=UploadToPathAndRename('upload/img/application_cover'),
-        validators=[
-            FileExtensionValidator(['png', 'jpg', 'jpeg', 'PNG', 'JPG']),
-            MinSizeValidator(400, 400),
-            MaxSizeValidator(2600, 2600)
-        ],
-        variations={
-            'large': (600, 400),
-            'thumbnail': (100, 100, True),
-            'medium': (300, 200),
-        },
-        # delete_orphans=True
-    )
 
     class Meta:
         ordering = ['-created_at']
@@ -64,25 +85,97 @@ class Application(models.Model):
             raise ValidationError(_('Make Sure you did filled all the Data Information for your Account.'))
 
 
-class Apply(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    application = models.ForeignKey(Application, on_delete=models.CASCADE)
-    english_skill = models.IntegerField(verbose_name=_('english skill'), choices=CRITERIA_CHOICES,
-                                        blank=True, null=True)
-    overall_skill = models.IntegerField(verbose_name=_('overall skill'), choices=CRITERIA_CHOICES,
-                                        blank=True, null=True)
-    leading_skill = models.IntegerField(verbose_name=_('leading skill'), choices=CRITERIA_CHOICES,
-                                        blank=True, null=True)
-    managing_skill = models.IntegerField(verbose_name=_('managing skill'), choices=CRITERIA_CHOICES,
-                                         blank=True, null=True)
-    communication_skill = models.IntegerField(verbose_name=_('communication skill'),
-                                              choices=CRITERIA_CHOICES, blank=True, null=True)
+class ApplicationImage(models.Model):
+    application = models.ForeignKey(Application, related_name='images', on_delete=models.CASCADE)
+    image = StdImageField(
+        default='static/default/img/application.png',
+        verbose_name=_('Application Cover'),
+        upload_to=UploadToPathAndRename('upload/img/application_cover'),
+        validators=[
+            FileExtensionValidator(['png', 'jpg', 'jpeg']),
+            MinSizeValidator(400, 400),
+            MaxSizeValidator(2600, 2600)
+        ],
+        variations={
+            'thumbnail': (100, 100, True),
+            'small': (200, 200, True),
+            'medium': (526, 375, True),
+            'large': (960, 575),
+        },
+        max_length=255,
+        help_text=_('Make sure to add only supported extension: png, jpg and jpeg')
+    )
+    real_name = models.CharField(verbose_name=_('Real Name'), max_length=255)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%s took %s application by %s' % (self.user.worker.get_short_name(), self.application.title,
-                                                 self.application.user.company.company_name)
+        return '%s' % self.real_name
+
+
+class ApplicationFile(models.Model):
+    application = models.ForeignKey(Application, related_name='files', on_delete=models.CASCADE)
+    file = models.FileField(
+        verbose_name=_('Application File'),
+        upload_to=UploadToPathAndRename('upload/files/applications'),
+        validators=[
+            FileExtensionValidator(
+                ['txt', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'zip', 'rar', ]),
+        ],
+        max_length=255,
+        help_text=_('Make sure to add only supported extension: txt, pdf, docx, xlsx, zip and rar')
+    )
+    real_name = models.CharField(verbose_name=_('Real Name'), max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '%s' % self.real_name
+
+
+class Apply(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    english_skill = models.IntegerField(
+        verbose_name=_('English Skill'),
+        choices=CRITERIA_CHOICES,
+        blank=True,
+        null=True
+    )
+    overall_skill = models.IntegerField(
+        verbose_name=_('Overall Skill'),
+        choices=CRITERIA_CHOICES,
+        blank=True,
+        null=True
+    )
+    leading_skill = models.IntegerField(
+        verbose_name=_('Leading Skill'),
+        choices=CRITERIA_CHOICES,
+        blank=True,
+        null=True
+    )
+    managing_skill = models.IntegerField(
+        verbose_name=_('Managing Skill'),
+        choices=CRITERIA_CHOICES,
+        blank=True,
+        null=True
+    )
+    communication_skill = models.IntegerField(
+        verbose_name=_('Communication Skill'),
+        choices=CRITERIA_CHOICES,
+        blank=True,
+        null=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        return '%s %s %s' % (self.user.get_full_name(), _('applied to'), self.application.title)
 
     def is_all_filled(self):
         return all(map(
@@ -93,7 +186,7 @@ class Apply(models.Model):
 
 class Question(models.Model):
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
-    question_text = models.CharField(verbose_name=_('question text'), max_length=200)
+    question_text = models.CharField(verbose_name=_('Question Text'), max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

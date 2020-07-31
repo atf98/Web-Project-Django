@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from account.models import Account
 from account.forms import (
     LoginForm, WorkerRegisterForm, CompanyRegisterForm, UpdatePasswordForm, SocialMediaForm,
-    WorkerUpdateForm, AccountUpdateForm, CompanyUpdateForm
+    WorkerUpdateForm, AccountUpdateForm, CompanyUpdateForm, CoverUpdateForm, AvatarUpdateForm
 )
 from account.tokens import account_activation_token
 from addon.decorators import language_scanner
@@ -28,23 +28,17 @@ def index(request):
     return render(request, 'guest/index.html', context)
 
 
-@language_scanner
-def about(request):
-    context = {
-
-    }
-    return render(request, 'guest/about.html', context)
-
-
 @login_required
 @language_scanner
 def profile(request, id):
     user = get_object_or_404(Account, pk=id)
     context = {
         'user': user,
+        'cover_form': CoverUpdateForm(),
+        'avatar_form': AvatarUpdateForm(),
     }
-    if request.user.is_worker:
-        context['applies'] = Apply.objects.filter(user=user).order_by()
+    if user.is_worker:
+        context['applies'] = Apply.objects.filter(user=user)
         return render(request, 'profile/profile_worker.html', context)
     else:
         context['applications'] = Application.objects.filter(user=user).order_by('-apply__user__date_joined')
@@ -84,7 +78,7 @@ def REGISTER(request):
             user_form.is_active = False
             user_form.save()
             current_site = get_current_site(request)
-            mail_subject = 'Activate your blog account.'
+            mail_subject = _('Activate your blog account.')
             message = render_to_string('settings/active_email.html', {
                 'user': user_form,
                 'domain': current_site.domain,
@@ -103,9 +97,9 @@ def REGISTER(request):
     context = {
         'forms': {
             'workerForm': {'form': WorkerRegisterForm(), 'status': 'active-title-card',
-                           'title': 'Registration Account for Worker'},
+                           'title': _('Registration Account for Worker')},
             'companyForm': {'form': CompanyRegisterForm(), 'status': 'inactive-title-card',
-                            'title': 'Registration Account for Company'}
+                            'title': _('Registration Account for Company')}
         }
     }
     return render(request, 'guest/register.html', context)
@@ -130,7 +124,7 @@ def activate(request, uidb64, token):
         Account(request, user)
         return redirect('account:home')
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse(_('Activation link is invalid!'))
 
 
 @login_required
@@ -157,15 +151,34 @@ def change_password(request):
 @login_required
 @language_scanner
 def update_profile(request):
+    instance = get_object_or_404(Account, id=request.user.id)
     if request.user.is_worker:
         user = WorkerUpdateForm(instance=request.user.worker)
     else:
         user = CompanyUpdateForm(instance=request.user.company)
     social = SocialMediaForm(instance=request.user)
     account = AccountUpdateForm(instance=request.user)
+
+    if request.method == 'POST':
+        if request.user.is_worker:
+            user = WorkerUpdateForm(request.POST or None, instance=instance)
+        else:
+            user = CompanyUpdateForm(request.POST or None, instance=instance)
+        social = SocialMediaForm(request.POST or None, instance=instance)
+        account = AccountUpdateForm(request.POST or None, request.FILES or None, instance=instance)
+
+        if user.is_valid() and social.is_valid() and account.is_valid():
+            user.save()
+            social.save()
+            account.save()
+            messages.success(request, _('Edits Saved.'))
+        else:
+            messages.error(request, _('Please Correct any error down below'))
     context = {
-        'social': social,
-        'user': user,
-        'account': account,
+        'forms': [
+            {'form': user, 'title': _('Personal Information')},
+            {'form': account, 'title': ''},
+            {'form': social, 'title': _('Links Settings')},
+        ]
     }
     return render(request, 'settings/update_profile.html', context)

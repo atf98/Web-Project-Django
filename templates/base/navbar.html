@@ -9,12 +9,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'application:home' %}">{% trans 'Applications' %}</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'account:about' %}">{% trans 'About' %}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">{% trans 'Contact Us' %}</a>
-            </li>
+
         </ul>
         <ul class="navbar-nav ml-auto">
 
@@ -22,11 +17,7 @@
                 <li class="nav-item">
                     <a data-toggle="tooltip" data-placement="bottom"
                        title="Open Controller" class="nav-link" id="show-sidebar" href="#">
-                        {% if request.user.is_company %}
-                            {{ request.user.company.get_full_name }}
-                        {% else %}
-                            {{ request.user.worker.get_full_name }}
-                        {% endif %}
+                        {{ request.user.get_full_name }}
                     </a>
                 </li>
             {% else %}
@@ -52,6 +43,7 @@
                                 <a href="{% url 'addon:set_language' %}?language={{ language.code }}"
                                    class="dropdown-item{% if language.code == LANGUAGE_CODE %} active{% endif %}">
                                     <img src="
+
                                             {% with 'images/languages/'|add:language.code|add:'-flag-xs.png' as flag_image_static %}{% static flag_image_static %}{% endwith %}"
                                          style="width: 25px; vertical-align: middle" alt="English">
                                     {{ language.name_local }}
@@ -61,7 +53,15 @@
                     </ul>
                 </div>
             </li>
-            </li>
+            <form action="{% url 'application:home' %}" method="get" class="form-inline my-2 my-lg-0 searchform navbar-form" role="search">
+                <input type="hidden" value="list" name="view">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" type="submit"><i class="fi-xnsuhl-search"></i></button>
+                    </div>
+                </div>
+            </form>
         </ul>
     </div>
 </nav>
@@ -86,11 +86,7 @@
                     <div class="user-info">
                     <span class="user-name">
                         <a class="text-muted" href="{% url 'account:profile'  request.user.id %}">
-                            {% if request.user.is_company %}
-                                {{ request.user.company.get_full_name }}
-                            {% else %}
-                                {{ request.user.worker.get_full_name }}
-                            {% endif %}
+                            {{ request.user.get_full_name }}
                         </a>
                     </span>
                         <span class="user-role">
@@ -117,13 +113,11 @@
                 <div class="sidebar-menu">
                     <ul>
                         <li class="header-menu">
-                            <span>{% trans 'General' %}</span>
+                            <span>{% trans 'Settings' %}</span>
                         </li>
-
                         <li class="sidebar-dropdown">
                             <a href="#">
-
-                                <span>{% trans 'Dashboard' %}</span>
+                                <span>Settings</span>
                                 <span class="badge badge-pill badge-warning">{% trans 'New' %}</span>
                                 <span class="badge badge-pill badge-danger">3</span>
                                 <span class="badge badge-pill badge-primary">{% trans 'Beta' %}</span>
@@ -131,25 +125,17 @@
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">{% trans 'Subdomain' %}
-                                            <span class="badge badge-pill badge-success">Pro</span>
+                                        <a href="{% url 'account:update-profile' %}">
+                                            Profile Information
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'account:update-password' %}">
+                                            Password Setting
                                         </a>
                                     </li>
                                 </ul>
                             </div>
-                        </li>
-                        <li class="header-menu">
-                            <span>{% trans 'Settings' %}</span>
-                        </li>
-                        <li>
-                            <a href="{% url 'account:update-profile' %}">
-                                <span>{% trans 'Update Profile Information' %}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'account:update-password' %}">
-                                <span>{% trans 'Change Password' %}</span>
-                            </a>
                         </li>
                         <li class="header-menu">
                             <span>{% trans 'More' %}</span>

@@ -8,7 +8,7 @@ from django.contrib import messages
 from addon.models import GlobalSetting
 
 
-def worker_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='login'):
+def worker_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='/login'):
     '''
     Decorator for views that checks that the logged in user is a worker,
     redirects to the log-in page if necessary.
@@ -23,7 +23,7 @@ def worker_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, logi
     return actual_decorator
 
 
-def company_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='login'):
+def company_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='/login'):
     '''
     Decorator for views that checks that the logged in user is a company,
     redirects to the log-in page if necessary.
@@ -41,19 +41,17 @@ def company_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, log
 def language_scanner(function):
     @wraps(function)
     def decorator(request, *args, **kwargs):
-        if request.method == 'GET':
-
-            if not request.user.is_authenticated and not GlobalSetting.objects.filter(
-                    token=request.session.session_key).exists():
-                return function(request, *args, **kwargs)
-            elif request.user.is_authenticated and not GlobalSetting.objects.filter(
-                    token=request.user.global_token).exists():
-                return function(request, *args, **kwargs)
-            elif GlobalSetting.objects.filter(token=request.session.session_key).exists():
-                addon = get_object_or_404(GlobalSetting, token=request.session.session_key)
-            else:
-                addon = get_object_or_404(GlobalSetting, token=request.user.global_token)
-            translation.activate(addon.language)
+        if not request.user.is_authenticated and not GlobalSetting.objects.filter(
+                token=request.session.session_key).exists():
+            return function(request, *args, **kwargs)
+        elif request.user.is_authenticated and not GlobalSetting.objects.filter(
+                token=request.user.global_token).exists():
+            return function(request, *args, **kwargs)
+        elif GlobalSetting.objects.filter(token=request.session.session_key).exists():
+            addon = get_object_or_404(GlobalSetting, token=request.session.session_key)
+        else:
+            addon = get_object_or_404(GlobalSetting, token=request.user.global_token)
+        translation.activate(addon.language)
         return function(request, *args, **kwargs)
 
     return decorator

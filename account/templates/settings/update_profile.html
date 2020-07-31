@@ -2,50 +2,79 @@
 {% load static i18n %}
 
 {% block title %}
-    {{ request.user.username }} - Update Profile
+        {{ request.user.get_full_name }} - {% trans 'Update Profile' %}
 {% endblock %}
 
 {% block content %}
     {% include 'base/navbar.html' %}
 
-    <div class="container mt-5 mb-5">
-    <div class="row">
-        <div class="col-3 mx-auto">
-            <div class="card-body">
-                <div class="d-flex align-items-center justify-content-center bg-light mb-2 p-2">
-                    <div class="author-img col-12">
-                        <img src="{{ request.user.profile_pic.url }}" alt="Person"
-                             class="img-fluid rounded-circle mr-1" style="width:55px">
-                    </div>
-                    <div class="author-info col-12">
-                        <p class="lead mb-0 font-weight-bolder">
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 position-fixed-side mb-3">
+                {% include 'settings/setting_sidebar.html' %}
+            </div>
+            <div class="col-md-7 offset-md-3 mb-3">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for form in forms %}
+                        {% if form.title %}
+                            <h3 class="">{{ form.title }}</h3>
+                            <hr>
+                        {% endif %}
 
-                            {% if request.user.is_worker %}
-                                {{ request.user.worker.get_full_name }}
-                            {% else %}
-                                {{ request.user.company.get_short_name }}
+                        {% for foo in form.form %}
+                            {% if foo.field.widget.attrs.data_column %}
+                                {% if foo.field.widget.attrs.first %}
+                                    <div class="form-group {{ foo.field.widget.attrs.data_type }}">
+                                    <div class="form-row">
+                                {% endif %}
+                            <div class="col-md-{{ foo.field.widget.attrs.data_column }}">
+                                <div class="form-group">
+                                    <label for="{{ foo.id_for_label }}">
+                                        {{ foo.label }}
+                                    </label>
+                                    {{ foo }}
+                                    {% if foo.help_text %}
+                                        <small class="text-muted">{{ foo.help_text|safe }}</small>
+                                    {% endif %}
+                                    {% if foo.errors %}
+                                        <br>
+                                        {% for error in foo.errors %}
+                                            <small style="color: red;">{{ error|escape }}</small>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if foo.field.widget.attrs.last %}
+                                </div>
+                                </div>
                             {% endif %}
-
-                        </p>
-                    </div>
-                </div>
+                            {% else %}
+                                <div class="form-group row {{ foo.field.widget.attrs.data_type }}">
+                                    <label for="{{ foo.id_for_label }}" class="col-sm-3 col-form-label">
+                                        {{ foo.label }}
+                                    </label>
+                                    <div class="col-sm-9">
+                                        {{ foo }}
+                                        {% if foo.help_text %}
+                                            <small class="text-muted">{{ foo.help_text|safe }}</small>
+                                        {% endif %}
+                                        {% if foo.errors %}
+                                            <br>
+                                            {% for error in foo.errors %}
+                                                <small style="color: red;">{{ error|escape }}</small>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary mt-4">{% trans 'Save Edits' %}</button>
+                </form>
             </div>
         </div>
-        <div class="col-6 mx-auto">
-            <h3>{% trans 'Personal Setting' %}</h3>
-            {{ account }}
-            {% for foo in user %}
-                {{ foo.label }}:
-                {{ foo }}
-            {% endfor %}
-
-            <hr>
-            <h3>{% trans 'Links Settings' %}</h3>
-            {{ social }}
-        </div>
-    </div>
     </div>
 
     {% include 'base/footer.html' %}
 {% endblock %}
-

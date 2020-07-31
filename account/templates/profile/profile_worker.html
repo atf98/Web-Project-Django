@@ -1,8 +1,8 @@
 {% extends 'base/base.html' %}
-{% load static i18n %}
+{% load static i18n filters %}
 
 {% block title %}
-    {{ user.worker.get_full_name }} {% trans ' - WebsiteName' %}
+    {{ user.get_full_name }} {% trans ' - WebsiteName' %}
 {% endblock %}
 
 
@@ -10,66 +10,12 @@
     {% include 'base/navbar.html' %}
     <div class="container-fluid mt-3">
         <div class="row">
-            <div class="top-navbar col-md-3">
-                <div class="card mb-2">
-                    <img src="{{ user.cover_pic.url }}"
-                         class="card-img cover-photo" alt="Cover">
-                    <div class="card-body mt-n5">
-                        <div class="d-flex align-items-center justify-content-center bg-light mb-2 p-2">
-                            <div class="author-img">
-                                <img src="{{ user.profile_pic.url }}" alt="Person"
-                                     class="img-fluid rounded-circle mr-1" style="width:55px">
-                            </div>
-                            <div class="author-info">
-                                <p class="lead mb-0 font-weight-bolder">
-                                    {{ user.worker.get_short_name }}
-                                </p>
-                            </div>
-                        </div>
-                        <p class="card-text text-center">{{ user.bio }}</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between pr-5 pl-5">
-                        {% if user.facebook_url %}
-                            <a href="{{ user.facebook_url }}" class="social social-facebook text-dark">
-                                <i class="fi-xnsuxl-facebook"></i>
-                            </a>
-                        {% endif %}
-                        {% if user.linkedin_url %}
-                            <a href="{{ user.linkedin_url }}" class="social social-linkedin text-dark">
-                                <i class="fi-xnsuxl-linkedin"></i>
-                            </a>
-                        {% endif %}
-                        {% if user.twitter_url %}
-                            <a href="{{ user.twitter_url }}" class="social social-twitter text-dark">
-                                <i class="fi-xnsuxl-twitter"></i>
-                            </a>
-                        {% endif %}
-                        {% if user.github_url %}
-                            <a href="{{ user.github_url }}" class="social social-github text-dark">
-                                <i class="fi-xnsuxl-github-alt"></i>
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title"></h4>
-                    </div>
-                    <div class="p-2">
-                        <div class="row px-2">
-                            <div class="col-4 p-1">
-                                <a href="#">
-                                    <img src="" alt="Recent photo"
-                                         class="img-fluid">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-3 position-fixed-side mb-3">
+                {% include 'profile/profile_sidebar.html' %}
             </div>
-            <div class="col-md-6">
-                <div class="card card-profile--activity">
-                    {% for apply in applies %}
+            <div class="col-md-6 order-last order-md-6 offset-md-3 mb-3">
+                {% for apply in applies %}
+                    <div class="card card-profile--activity mb-2">
                         <div class="card-body">
                             <div class="media align-items-center">
                                 <img src="{{ user.profile_pic.url }}" alt="Person" class="rounded-circle mr-2"
@@ -77,7 +23,7 @@
                                 <div class="media-body">
                                     <p class="card-text mb-0">
                                         <a href="{% url 'account:profile' user.id %}">
-                                            {{ user.worker.get_full_name }}
+                                            {{ user.get_full_name }}
                                         </a> {% trans 'has applied to' %}
                                         <a href="{% url 'application:detail' apply.application.id %}">
                                             {{ apply.application.title }}
@@ -86,6 +32,32 @@
                                     <p class="card-text text-muted">
                                         {{ apply.created_at|timesince }}
                                     </p>
+                                    {% if apply.is_all_filled %}
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <a href="{% url 'account:profile' apply.application.user.id %}">
+                                                    {{ apply.application.user.company.get_full_name }}
+                                                </a>
+                                                {% trans 'has evaluated the request for this profile, as:' %}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <span class="font-weight-bold">مهارة القيادة:</span> {{ apply.leading_skill|choices }}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <span class="font-weight-bold">مهارة التواصل:</span> {{ apply.communication_skill|choices }}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <span class="font-weight-bold">مهارة الادارة:</span> {{ apply.managing_skill|choices }}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <span class="font-weight-bold">مهارة اللغة:</span> {{ apply.english_skill|choices }}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <span class="font-weight-bold">مهارة العامة:</span> {{ apply.overall_skill|choices }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 {% if request.user == apply.user %}
                                     <a href="#" class="btn btn-white btn-sm" data-toggle="dropdown"
@@ -95,12 +67,14 @@
                                     <div class="dropdown-menu dropdown-menu-right">
                                     </div>
                                 {% endif %}
+
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
+
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 offset-md-9 position-fixed-side mb-3">
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <div class="card-title">{% trans 'Last Applies' %}</div>
@@ -137,6 +111,7 @@
             </div>
         </div>
     </div>
+    {% include 'profile/change_image_forms.html' %}
 {% endblock %}
 
 

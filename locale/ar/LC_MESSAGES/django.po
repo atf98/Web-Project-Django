@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 07:58+0300\n"
+"POT-Creation-Date: 2020-07-31 23:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,143 +19,77 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: .\account\forms.py:14 .\account\forms.py:154
+#: .\account\forms.py:17 .\account\forms.py:113 .\account\forms.py:117
+#: .\account\models.py:87
 msgid "Email"
-msgstr "البريد الالكتورني"
+msgstr "البريد الإلكتروني"
 
-#: .\account\forms.py:21
-msgid "Double check the submitted Email!"
-msgstr "تأكد من البريد الالكتورني المدخل!"
-
-#: .\account\forms.py:22
-msgid "This Email is used by another user."
-msgstr "البريد الالكتورني المقدم مستخدم من قبل مستخدم اخر."
-
-#: .\account\forms.py:23
-msgid "Email is not look like a one!"
-msgstr "البريد الالكتورني المدخل لا يشبه المعلومات في قاعدة البيانات"
-
-#: .\account\forms.py:25
+#: .\account\forms.py:19 .\account\models.py:94
 msgid "Username"
 msgstr "أسم المستخدم"
 
-#: .\account\forms.py:32
-msgid "Double check the submitted Username!"
-msgstr "تاكد من اسم المستخدم المدخل"
-
-#: .\account\forms.py:33
-msgid "This Username is used by another user."
-msgstr "أسم المستخدم الذي ادخلته مستخدم من قبل."
-
-#: .\account\forms.py:34
-msgid "Username is not look like a one!"
-msgstr "أسم المستخدم المدخل لا يتمتع بخواص اسم المستخدم في هاذ الموقع!"
-
-#: .\account\forms.py:36
-msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "المطلوب, 150 حرف او اقل. حروف, ارقام و رموز خاصة @/./+/-/_ فقط."
-
-#: .\account\forms.py:37 .\account\forms.py:162
+#: .\account\forms.py:21 .\account\forms.py:121 .\account\forms.py:125
 msgid "Password"
-msgstr "كلمة السر"
+msgstr "كلمة المرور"
 
-#: .\account\forms.py:46
-msgid "Passwords are not same."
-msgstr "كلمات السر المدخله غير متشابهتان."
+#: .\account\forms.py:23
+msgid "Password Confirmation"
+msgstr "تأكيد كلمة المرور"
 
-#: .\account\forms.py:48
-msgid ""
-"\n"
-"                                <ul>\n"
-"                                <li>Your password can’t be too similar to "
-"your other personal information.</li>\n"
-"                                <li>Your password must contain at least 8 "
-"characters.</li>\n"
-"                                <li>Your password can’t be a commonly used "
-"password.</li>\n"
-"                                <li>Your password can’t be entirely numeric."
-"</li>\n"
-"                                </ul>\n"
-"                                "
-msgstr ""
-"\n"
-"                                <ul>\n"
-"                                <li> لا يمكن أن تكون كلمة المرور الخاصة بك "
-"مشابهة جدًا لمعلوماتك الشخصية الأخرى.</li>\n"
-"                                <li> يجب أن تحتوي كلمة المرور الخاصة بك على "
-"8 أحرف على الأقل.</li>\n"
-"                                <li> لا يمكن أن تكون كلمة مرورك كلمة مرور "
-"شائعة الاستخدام.</li>\n"
-"                                <li> لا يمكن أن تكون كلمة مرورك رقمية "
-"بالكامل.</li>\n"
-"                                </ul>\n"
-"                                "
-
-#: .\account\forms.py:57
-msgid "Re-Write Password"
-msgstr "أعد كتابة كلمة السر"
-
-#: .\account\forms.py:64
-msgid "Enter the same password as before, for verification."
-msgstr "اعد طتابة كلمة السر, للتأكد."
-
-#: .\account\forms.py:72
+#: .\account\forms.py:31 .\account\forms.py:35 .\account\models.py:262
 msgid "First Name"
-msgstr "الاسم الاول"
+msgstr "الاسم الأول"
 
-#: .\account\forms.py:83 .\account\forms.py:93 .\account\forms.py:104
-#: .\account\forms.py:135 .\account\forms.py:288 .\application\forms.py:19
-#: .\application\forms.py:28 .\application\forms.py:39
-#: .\application\forms.py:50 .\application\forms.py:96
-#: .\application\forms.py:112 .\application\forms.py:121
-#: .\application\forms.py:130 .\application\forms.py:139
-#: .\application\forms.py:148
+#: .\account\forms.py:42 .\account\forms.py:52 .\account\forms.py:63
+#: .\account\forms.py:94 .\application\forms.py:81 .\application\forms.py:97
+#: .\application\forms.py:106 .\application\forms.py:115
+#: .\application\forms.py:124 .\application\forms.py:133
 msgid "Make Sure to fill this input."
-msgstr "تأكد من ملىء جميع الحقول"
+msgstr "تأكد من ملء هذا الإدخال."
 
-#: .\account\forms.py:85
+#: .\account\forms.py:44 .\account\forms.py:48 .\account\models.py:267
 msgid "Middle Name"
-msgstr "الاسم المتوسط"
+msgstr "الاسم الوسط"
 
-#: .\account\forms.py:95
+#: .\account\forms.py:54 .\account\forms.py:58 .\account\models.py:272
 msgid "Last Name"
 msgstr "الاسم الاخير"
 
-#: .\account\forms.py:127
-#, fuzzy
-#| msgid "company name"
+#: .\account\forms.py:86 .\account\forms.py:90 .\account\models.py:311
 msgid "Company Name"
 msgstr "اسم الشركة"
 
-#: .\account\forms.py:171
-#, fuzzy
-#| msgid ""
-#| "Please enter a correct %(username)s and password. Note that both fields "
-#| "may be case-sensitive."
+#: .\account\forms.py:130
 msgid ""
 "Please enter a correct Email and password. Note that both fields may be case-"
 "sensitive."
-msgstr ""
-"يرجى إدخال البريد الإلكتروني وكلمة مرور صحيحين. لاحظ أن كلا الحقلين قد يكونان "
-"حساسين لحالة الأحرف."
+msgstr "يرجى إدخال بريد إلكتروني وكلمة مرور صحيحين. لاحظ أن كلا الحقلين قد يكونان حساسين لحالة الأحرف."
 
-#: .\account\forms.py:174
+#: .\account\forms.py:132
 msgid "This account is inactive."
 msgstr "هذا الحساب غير نشط."
 
-#: .\account\forms.py:189
+#: .\account\forms.py:147
 msgid "We can't found any user with that Email!"
 msgstr "لا يمكننا العثور على أي مستخدم بهذا البريد الإلكتروني!"
 
-#: .\account\forms.py:192
+#: .\account\forms.py:150
 msgid "Email or Password is not correct please try again!"
-msgstr "البريد الالكتورني او كلمة السر غير صحيحه, ارجاء اعادة المحاولة!"
+msgstr "البريد الإلكتروني أو كلمة المرور غير صحيحة ، يرجى المحاولة مرة أخرى!"
 
-#: .\account\forms.py:193
+#: .\account\forms.py:151
 msgid "User is not Activated please check you Email"
 msgstr "لم يتم تنشيط المستخدم ، يرجى التحقق من بريدك الإلكتروني"
 
-#: .\account\forms.py:203
+#: .\account\forms.py:158
+msgid "Old password"
+msgstr "كلمة المرور القديمة"
+
+#: .\account\forms.py:160
+msgid "New password"
+msgstr "كلمة سر جديدة"
+
+#: .\account\forms.py:161
 msgid ""
 "\n"
 "        <ul>\n"
@@ -167,279 +101,401 @@ msgid ""
 "        </ul>\n"
 "        "
 msgstr ""
-"\n"
-"                                <ul>\n"
-"                                <li> لا يمكن أن تكون كلمة المرور الخاصة بك "
-"مشابهة جدًا لمعلوماتك الشخصية الأخرى.</li>\n"
-"                                <li> يجب أن تحتوي كلمة المرور الخاصة بك على "
-"8 أحرف على الأقل.</li>\n"
-"                                <li> لا يمكن أن تكون كلمة مرورك كلمة مرور "
-"شائعة الاستخدام.</li>\n"
-"                                <li> لا يمكن أن تكون كلمة مرورك رقمية "
-"بالكامل.</li>\n"
-"                                </ul>\n"
-"                                "
+       "\n"
+       "        <ul>\n"
+       "        <li>لا يمكن أن تكون كلمة المرور الخاصة بك مشابهة للغاية لكلمة المرور الشخصية الأخرى الخاصة بك "
+       "information.</li>\n"
+       "        <li>يجب أن تحتوي كلمة المرور الخاصة بك على 8 أحرف على الأقل.</li>\n"
+       "        <li>لا يمكن أن تكون كلمة مرورك كلمة مرور شائعة الاستخدام.</li>\n"
+       "        <li>لا يمكن أن تكون كلمة مرورك رقمية بالكامل.</li>\n"
+       "        </ul>\n"
+       "        "
 
-#: .\account\forms.py:216
-msgid "Facebook Link"
-msgstr "رابط الخاص Facebook"
+#: .\account\forms.py:170
+msgid "Confirm password"
+msgstr "تأكيد كلمة المرور"
 
-#: .\account\forms.py:222
-msgid "Twitter Link"
-msgstr "رابط الخاص Twitter"
+#: .\account\forms.py:177 .\account\models.py:176
+msgid "Facebook URL"
+msgstr "رابط Facebook"
 
-#: .\account\forms.py:228
-msgid "LinkedIn Link"
-msgstr "رابط الخاص LinkedIn"
+#: .\account\forms.py:179 .\account\models.py:184
+msgid "Twitter URL"
+msgstr "رابط Twitter"
 
-#: .\account\forms.py:234
-msgid "GitHub Link"
-msgstr "رابط الخاص GitHub"
+#: .\account\forms.py:181 .\account\models.py:192
+msgid "LinkedIn URL"
+msgstr "رابط LinkedIn"
 
-#: .\account\forms.py:275
-#, fuzzy
-#| msgid "birthday"
-msgid "Birthday"
-msgstr "عيد الميلاد"
+#: .\account\forms.py:183 .\account\models.py:200
+msgid "GitHub URL"
+msgstr "رابط GitHub"
 
-#: .\account\forms.py:281
-msgid "ssid"
+#: .\account\forms.py:226
+#: .\application\templates\application\applies_complete.html:48
+msgid "SSID"
 msgstr "الرقم الوطني"
 
-#: .\account\models.py:32
+#: .\account\models.py:44
 msgid "Users must have an email address"
-msgstr "المستخدم يجب ان يحتوي على البريد الالكتورني"
+msgstr "يجب أن يكون لدى المستخدمين عنوان بريد إلكتروني"
 
-#: .\account\models.py:34
+#: .\account\models.py:46
 msgid "Users must have an username"
-msgstr "المستخدم يجب ان يحتوي على أسم مستخدم"
+msgstr "يجب أن يكون لدى المستخدمين اسم مستخدم"
 
-#: .\account\models.py:52
+#: .\account\models.py:64
 msgid "Superuser must have is_staff=True."
 msgstr ""
 
-#: .\account\models.py:54
+#: .\account\models.py:66
 msgid "Superuser must have is_superuser=True."
 msgstr ""
 
-#: .\account\models.py:56
+#: .\account\models.py:68
 msgid "Superuser must have is_admin=True."
 msgstr ""
 
-#: .\account\models.py:75
-msgid "email"
-msgstr "البريد الالكتورني"
-
-#: .\account\models.py:78
+#: .\account\models.py:90
 msgid "Enter valid email: e.g. example@domain.com"
-msgstr "ادخل بريد الالكتورني: مثل example@domain.com"
-
-#: .\account\models.py:85
-msgid "A user with that username already exists."
-msgstr "الاسم مستخدم من قبل"
-
-#: .\account\models.py:86
-msgid "Enter Username: e.g. Mark99"
-msgstr "ادخل اسم مستخدم: مثل Mark99"
-
-#: .\account\models.py:89
-msgid "(select country)"
-msgstr "(اختار دولة)"
-
-#: .\account\models.py:89
-msgid "country"
-msgstr "دولة"
-
-#: .\account\models.py:93
-msgid "join date"
-msgstr "وقت التسجيل"
+msgstr "أدخل بريدًا إلكترونيًا صالحًا: مثل example@domain.com..."
 
 #: .\account\models.py:98
+msgid "A user with that username already exists."
+msgstr "اسم المستخدم موجود مسبقا."
+
+#: .\account\models.py:99
+msgid ""
+"Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only. e.g. "
+"Mark99"
+msgstr "مطلوب. 150 حرفًا أو أقل. الحروف والأرقام و @ /. / + / - / _ فقط. على سبيل المثال مارك 99"
+
+#: .\account\models.py:102
+#: .\application\templates\application\applies_complete.html:31
+msgid "City"
+msgstr "مدينة"
+
+#: .\account\models.py:107
+msgid "City/State Can have both, separated by a comma."
+msgstr "يمكن أن تحتوي المدينة / الولاية على كليهما ، مفصولة بفاصلة."
+
+#: .\account\models.py:110
+#: .\application\templates\application\applies_complete.html:36
+msgid "Country"
+msgstr "بلد"
+
+#: .\account\models.py:114
+msgid "(Select Country)"
+msgstr "(حدد الدولة)"
+
+#: .\account\models.py:118
+msgid "join date"
+msgstr "تاريخ الانضمام"
+
+#: .\account\models.py:123
 msgid "last login"
-msgstr "وقت اخر تسجيل"
+msgstr "آخر تسجيل دخول"
 
-#: .\account\models.py:142
+#: .\account\models.py:138
+msgid "Profile Image"
+msgstr "صورة الملف الشخصي"
+
+#: .\account\models.py:151
+msgid ""
+"Limits:<ul><li>Size 2MB</li><li>Dimensions Range: Width & height (200-1600)</"
+"li></ul>"
+msgstr "حدود:<ul><li>الحجم 2 ميجا بايت</li><li>نطاق الأبعاد: العرض والارتفاع (200-1600)</"
+        "li></ul>"
+
+#: .\account\models.py:154
+msgid "Cover Image"
+msgstr "صورة الغلاف"
+
+#: .\account\models.py:166
+msgid ""
+"Limits:<ul><li>Size 4MB</li><li>Dimensions Range: Width & height (400-2600)</"
+"li></ul>"
+msgstr "حدود:<ul><li>الحجم 4 ميجا بايت</li><li>نطاق الأبعاد: العرض والارتفاع (200-1600)</"
+                "li></ul>"
+
+#: .\account\models.py:169
+msgid "Bio"
+msgstr "السيرة الذاتية"
+
+#: .\account\models.py:173
 msgid "Hey there, I'm new here can you help with that."
-msgstr "مرحبا, انا جديد هنا هل يمكن ان تساعدني <3."
+msgstr "مرحبًا ، أنا جديد هنا ، هل يمكنك المساعدة في ذلك."
 
-#: .\account\models.py:182
-msgid "first name"
-msgstr "الاسم الاول"
+#: .\account\models.py:181
+msgid "Link Should look like this: (https://)www.facebook.com/USERNAME/"
+msgstr "يجب أن يبدو الرابط كما يلي: (https: //) www.facebook.com/USERNAME/"
 
-#: .\account\models.py:184
-msgid "Enter First Name"
-msgstr "ادخل الاسم الاول"
+#: .\account\models.py:189
+msgid "Link Should look like this: (https://)www.twitter.com/USERNAME/"
+msgstr "يجب أن يبدو الرابط كما يلي: (https: //) www.twitter.com/USERNAME/"
 
-#: .\account\models.py:188
-msgid "middle name"
-msgstr "ادخل الاسم المتوسط"
+#: .\account\models.py:197
+msgid "Link Should look like this: (https://)www.linkedin.com/in/USERNAME/"
+msgstr "يجب أن يبدو الرابط كما يلي: (https: //) www.linkedin.com/in/USERNAME/"
 
-#: .\account\models.py:190
-msgid "Enter Middle Name"
-msgstr "ادخل الاسم المتوسط"
+#: .\account\models.py:205
+msgid "Link Should look like this: (https://)www.github.com/USERNAME/"
+msgstr "يجب أن يبدو الرابط كما يلي: (https: //) www.github.com/USERNAME/"
 
-#: .\account\models.py:194
-msgid "last name"
-msgstr "الاسم الاخير"
+#: .\account\models.py:214
+msgid "account"
+msgstr "الحساب"
 
-#: .\account\models.py:196
-msgid "Enter Last Name"
-msgstr "ادخل الاسم الاخير"
+#: .\account\models.py:215
+msgid "accounts"
+msgstr "حسابات"
 
-#: .\account\models.py:199
-msgid "birthday"
+#: .\account\models.py:277
+msgid "Birthday"
 msgstr "عيد الميلاد"
 
-#: .\account\models.py:201
-msgid "(select nationality)"
-msgstr "(اختار جنسية)"
+#: .\account\models.py:284
+msgid "(Select Nationality)"
+msgstr "(اختر الجنسية)"
 
-#: .\account\models.py:202
-msgid "nationality"
-msgstr "جنسية"
+#: .\account\models.py:285
+#: .\application\templates\application\applies_complete.html:43
+msgid "Nationality"
+msgstr "الجنسية"
 
-#: .\account\models.py:233
-msgid "company name"
-msgstr "اسم الشركة"
+#: .\account\models.py:298
+msgid "worker"
+msgstr "عامل"
 
-#: .\account\models.py:236
-msgid "Enter Company Name"
-msgstr "ادخل اسم الشركة"
+#: .\account\models.py:299
+msgid "workers"
+msgstr "عمال"
 
-#: .\account\templates\guest\about.html:5
-msgid "About - WebsiteName"
-msgstr "عنا - اسم الموقع"
+#: .\account\models.py:314
+msgid "Company Name can contain only a-zA-Z, digits and @/./+/-/_"
+msgstr "يمكن أن يحتوي اسم الشركة فقط على a-zA-Z وأرقام و @ /. / + / - / _"
 
-#: .\account\templates\guest\about.html:13
-msgid "About this Website"
-msgstr "عن هاذ الموقع."
+#: .\account\models.py:320
+msgid "company"
+msgstr "شركة"
 
-#: .\account\templates\guest\index.html:5 .\templates\base\navbar.html:3
+#: .\account\models.py:321
+msgid "companies"
+msgstr "الشركات"
+
+#: .\account\templates\guest\index.html:5
+#: .\application\templates\application\application_details.html:5
+#: .\application\templates\application\application_new.html:5
+#: .\templates\base\navbar.html:3
 msgid "WebsiteName"
+msgstr "اسم الموقع"
+
+#: .\account\templates\guest\index.html:16
+msgid "Who are we?"
+msgstr "من نحن ؟"
+
+#: .\account\templates\guest\index.html:17
+msgid "The career talent website welcomes you"
+msgstr "موقع مواهب الوظائف يرحب بكم "
+
+#: .\account\templates\guest\index.html:19
+msgid "What do we do for you?"
+msgstr "ماذا نقدم لكم ؟"
+
+#: .\account\templates\guest\index.html:21
+msgid ""
+"\n"
+"                        We do the best way through the recruitment process "
+"by providing jobs for you and competing for\n"
+"                        them, as\n"
+"                        the site provides you with the required tasks "
+"through every job you provide in your professional\n"
+"                        way,\n"
+"                        and without any doubt that everyone has a talent to "
+"present what has been accomplished tasks of\n"
+"                        any job\n"
+"                        title and qualify for a personal interview\n"
+"                    "
 msgstr ""
+       "\n"
+       "نقوم بالطريقة الأفضل من خلال عملية التوظيف بعرض وظائف لكم والمنافسة عليها حيث أن الموقع يقدم لكم مهام مطلوبة من خلال كُل وظيفة تقوم بتقديمها بطريقتك المحترفة وبلا شك أن كُل فرد لدية موهبة في تقديم المهام المنجزة لأي مسمى وظيفي كان والتأهل للمقابلة الشخصية \n"
+       "                    "
+
+#: .\account\templates\guest\index.html:32
+msgid "What are our advantages?"
+msgstr "ماهي مميزاتنا ؟"
+
+#: .\account\templates\guest\index.html:34
+msgid ""
+"\n"
+"                        The company evaluates the applicant through a "
+"personal interview through his personal account on\n"
+"                        the\n"
+"                        site to praise his capabilities and keep them for "
+"display by any person or company through an\n"
+"                        account on\n"
+"                        the site\n"
+"                    "
+msgstr  ""
+       "\n"
+       "تقوم الشركة بتقييم المتقدم من خلال المقابلة الشخصية عبر حسابه الشخصي في الموقع للأشادة بقدراتة والاحتفاظ بها لكي يطلع عليها أي شخص أو شركة عبر حسابة في الموقع\n"
+       "                    "
+
+#: .\account\templates\guest\index.html:44
+msgid ""
+"\n"
+"                        Increase the capabilities and expertise of "
+"applicants to compete in providing tasks in various\n"
+"                        positions\n"
+"                        What We Do\n"
+"                    "
+msgstr  ""
+       "\n"
+       "زيادة القدرات والخبرات للمتقدمين للمنافسة في تقديم المهام في شتى الوظائف\n"
+       "                    "
 
 #: .\account\templates\guest\login.html:5
 msgid "Login - WebsiteName"
 msgstr "تسجيل الدخول - اسم الموقع"
 
 #: .\account\templates\guest\login.html:13
-#: .\account\templates\guest\login.html:19 .\templates\base\navbar.html:34
+#: .\account\templates\guest\login.html:34 .\templates\base\navbar.html:25
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: .\account\templates\guest\login.html:22
-#: .\account\templates\guest\register.html:72
+#: .\account\templates\guest\login.html:37
+#: .\account\templates\guest\register.html:82
 msgid "Forgot Password?"
-msgstr "هل نسيت كلمة السر؟"
+msgstr "هل نسيت كلمة المرور؟"
 
 #: .\account\templates\guest\register.html:5
-#, fuzzy
-#| msgid "Registration"
 msgid "Registration - WebsiteName"
-msgstr "تسجيل حساب جديد"
+msgstr "التسجيل - اسم الموقع"
 
 #: .\account\templates\guest\register.html:15
-#, fuzzy
-#| msgid "Registration"
 msgid "Personal Account"
-msgstr "تسجيل حساب جديد"
+msgstr "حساب شخصي"
 
 #: .\account\templates\guest\register.html:15
 msgid "(Search for Work)"
-msgstr "(ابحث عن عمل)"
+msgstr "(البحث عن عمل)"
 
 #: .\account\templates\guest\register.html:22
 msgid "Company Account"
-msgstr "حساب شركة"
+msgstr "حساب الشركة"
 
 #: .\account\templates\guest\register.html:22
 msgid "(Search for Workers)"
-msgstr "(ابحث عن موظفيين)"
+msgstr "(البحث عن عمال)"
 
-#: .\account\templates\guest\register.html:69
-#, fuzzy
-#| msgid "Registration"
+#: .\account\templates\guest\register.html:79
 msgid "Register"
-msgstr "تسجيل حساب جديد"
+msgstr "تسجيل"
+
+#: .\account\templates\profile\change_image_forms.html:6
+msgid "Cover Changer"
+msgstr ""
+
+#: .\account\templates\profile\change_image_forms.html:19
+#: .\account\templates\profile\change_image_forms.html:45
+msgid "Save"
+msgstr "حفظ"
+
+#: .\account\templates\profile\change_image_forms.html:32
+msgid "Avatar Changer"
+msgstr ""
+
+#: .\account\templates\profile\change_image_forms.html:56
+msgid "Delete Avatar/Cover"
+msgstr "حذف الصورة الرمزية / الغلاف"
+
+#: .\account\templates\profile\change_image_forms.html:65
+msgid "Close"
+msgstr "أغلق"
+
+#: .\account\templates\profile\change_image_forms.html:66
+#: .\account\templates\settings\change_password.html:21
+msgid "Save changes"
+msgstr "احفظ التغييرات"
 
 #: .\account\templates\profile\profile_company.html:5
 #: .\account\templates\profile\profile_worker.html:5
 msgid " - WebsiteName"
-msgstr " - اسم الموقع"
+msgstr "- اسم الموقع"
 
-#: .\account\templates\profile\profile_company.html:88
-#, fuzzy
-#| msgid "Applications"
+#: .\account\templates\profile\profile_company.html:26
 msgid "added new application"
-msgstr "اضاف استمارة جديدة"
+msgstr "أضاف تطبيق جديد"
 
-#: .\account\templates\profile\profile_company.html:102
-#: .\application\templates\application\edit.html:5
-#: .\application\templates\application\edit.html:58
-#: .\application\templates\application\single_application.html:118
-#, fuzzy
-#| msgid "Applications"
+#: .\account\templates\profile\profile_company.html:40
+#: .\application\templates\application\application_details.html:147
+#: .\application\templates\application\application_edit.html:5
+#: .\application\templates\application\application_edit.html:108
 msgid "Edit Application"
-msgstr "تعديل الاستمارات"
+msgstr "تحرير الاستمارة"
 
-#: .\account\templates\profile\profile_company.html:105
-#: .\application\templates\application\single_application.html:122
-#, fuzzy
-#| msgid "Applications"
+#: .\account\templates\profile\profile_company.html:43
+#: .\application\templates\application\application_details.html:151
 msgid "Delete Application"
-msgstr "احذف الاستمارات"
+msgstr "حذف الاستمارة"
 
-#: .\account\templates\profile\profile_company.html:109
-#: .\application\templates\application\single_application.html:114
+#: .\account\templates\profile\profile_company.html:48
+#: .\application\templates\application\application_details.html:143
 msgid "Show Applies"
-msgstr "اظهر المتقدميين"
+msgstr "إظهار المتقدمين"
 
-#: .\account\templates\profile\profile_company.html:112
-#: .\application\templates\application\add_question.html:103
-#: .\application\templates\application\single_application.html:110
+#: .\account\templates\profile\profile_company.html:52
+#: .\application\templates\application\application_details.html:139
+#: .\application\templates\application\question_add.html:113
 msgid "Add Question"
-msgstr "اضف سؤال"
+msgstr "أضف سؤال"
 
-#: .\account\templates\profile\profile_company.html:134
-#, fuzzy
-#| msgid "Applications"
+#: .\account\templates\profile\profile_company.html:74
 msgid "Last Application Applies"
-msgstr "اخر الاستمارات تم التقدم لها"
+msgstr ""
 
-#: .\account\templates\profile\profile_worker.html:81
+#: .\account\templates\profile\profile_sidebar.html:13
+msgid "Upload Cover"
+msgstr "تحميل الغلاف"
+
+#: .\account\templates\profile\profile_sidebar.html:14
+msgid "Upload Avatar"
+msgstr "تحميل الصورة الرمزية"
+
+#: .\account\templates\profile\profile_sidebar.html:16
+msgid "Delete"
+msgstr "حذف"
+
+#: .\account\templates\profile\profile_worker.html:27
 msgid "has applied to"
-msgstr "تقدم بطلب "
+msgstr "تقدم الى"
 
-#: .\account\templates\profile\profile_worker.html:106
+#: .\account\templates\profile\profile_worker.html:42
+msgid "has evaluated the request for this profile, as:"
+msgstr "قام بتقييم طلب هذا الملف الشخصي ، على النحو التالي:"
+
+#: .\account\templates\profile\profile_worker.html:80
 msgid "Last Applies"
-msgstr "اخر التقديمات"
+msgstr "آخر التقديمات"
 
 #: .\account\templates\profile\reset_password.html:18
 #: .\account\templates\profile\reset_password.html:31
-#, fuzzy
-#| msgid "Re-Write Password"
 msgid "Reset Password"
-msgstr "أعد كتابة كلمة السر"
+msgstr "إعادة تعيين كلمة المرور"
 
 #: .\account\templates\profile\reset_password.html:21
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
-msgstr "هل نسيت كلمة السر؟"
+msgstr "نسيت رقمك السري؟"
 
 #: .\account\templates\profile\reset_password.html:22
 msgid ""
 "Enter your email address and we will send you instructions on how to reset "
 "your password."
-msgstr ""
-"أدخل عنوان بريدك الإلكتروني وسنرسل لك تعليمات حول كيفية إعادة تعيين كلمة "
-"المرور الخاصة بك."
+msgstr "أدخل عنوان بريدك الإلكتروني وسنرسل لك تعليمات حول كيفية إعادة تعيين كلمة المرور الخاصة بك."
 
 #: .\account\templates\profile\reset_password.html:28
-#, fuzzy
-#| msgid "Users must have an email address"
 msgid "Enter email address"
-msgstr "المستخدم يجب ان يحتوي على البريد الالكتورني"
+msgstr "أدخل عنوان البريد الالكتروني"
 
 #: .\account\templates\settings\active_email.html:3
 msgid "Hi"
@@ -447,223 +503,229 @@ msgstr "مرحبا"
 
 #: .\account\templates\settings\active_email.html:4
 msgid "Please click on the link to confirm your registration"
-msgstr "الرجاء الضغط على الرابط في الاسفل لتاكيد نشاط حسابك"
+msgstr "يرجى النقر على الرابط لتأكيد تسجيلك"
 
 #: .\account\templates\settings\change_password.html:14
-#: .\templates\base\navbar.html:151
-#, fuzzy
-#| msgid "Password"
 msgid "Change Password"
-msgstr "تغيير كلمة السر"
+msgstr "غير كلمة السر"
 
-#: .\account\templates\settings\change_password.html:21
-msgid "Save changes"
-msgstr "احفظ التغييرات"
+#: .\account\templates\settings\setting_sidebar.html:17
+msgid "Account Setting"
+msgstr "إعدادات الحساب"
 
-#: .\account\templates\settings\update_profile.html:35
-msgid "Personal Setting"
-msgstr "معلومات الشخصية"
+#: .\account\templates\settings\setting_sidebar.html:23
+msgid "Password Setting"
+msgstr "إعداد كلمة المرور"
 
-#: .\account\templates\settings\update_profile.html:43
-msgid "Links Settings"
-msgstr "اعدادات الروابط في الصفحة"
+#: .\account\templates\settings\setting_sidebar.html:29
+msgid "Global Setting"
+msgstr "الإعداد العام"
+
+#: .\account\templates\settings\setting_sidebar.html:35
+msgid "Profile Activity"
+msgstr "نشاط الملف الشخصي"
+
+#: .\account\templates\settings\update_profile.html:5
+msgid "Update Profile"
+msgstr "تحديث الملف"
+
+#: .\account\templates\settings\update_profile.html:73
+msgid "Save Edits"
+msgstr "حفظ التعديلات"
 
 #: .\account\validators.py:21
 #, python-format
 msgid "A invalid %s URL please double check"
-msgstr "الرابط المدخل %s غير صحيح, الرجاء التاكد"
+msgstr "يرجى التحقق من عنوان URL %s غير صالح"
 
-#: .\account\views.py:99
+#: .\account\views.py:81
+msgid "Activate your blog account."
+msgstr "تنشيط حساب مدونتك."
+
+#: .\account\views.py:93
 msgid "Please, Check Your Email we've sent an activation link for you Profile."
-msgstr ""
-"من فضلك ، تحقق من بريدك الإلكتروني ، لقد أرسلنا رابط تفعيل لملفك الشخصي."
+msgstr "من فضلك ، تحقق من بريدك الإلكتروني ، لقد أرسلنا رابط تفعيل لملفك الشخصي."
 
-#: .\account\views.py:101
+#: .\account\views.py:95
 msgid "Please make sure all the inputs are right!"
 msgstr "يرجى التأكد من صحة جميع المدخلات!"
 
-#: .\account\views.py:144
+#: .\account\views.py:100
+msgid "Registration Account for Worker"
+msgstr "حساب تسجيل العامل"
+
+#: .\account\views.py:102
+msgid "Registration Account for Company"
+msgstr "حساب تسجيل الشركة"
+
+#: .\account\views.py:127
+msgid "Activation link is invalid!"
+msgstr "رابط التفعيل غير صالح!"
+
+#: .\account\views.py:138
 msgid "Your password was successfully updated!"
 msgstr "تم تحديث كلمة مرورك بنجاح!"
 
-#: .\account\views.py:147
+#: .\account\views.py:141
 msgid "Please correct the error below."
 msgstr "يرجى تصحيح الخطأ أدناه."
 
-#: .\application\forms.py:11 .\application\forms.py:15
-#, fuzzy
-#| msgid "title"
-msgid "Title"
-msgstr "عنوان"
+#: .\account\views.py:174
+msgid "Edits Saved."
+msgstr "تم حفظ التعديلات."
 
-#: .\application\forms.py:21 .\application\forms.py:25
-msgid "Body"
-msgstr "المحتوى"
+#: .\account\views.py:176
+msgid "Please Correct any error down below"
+msgstr "يرجى تصحيح أي خطأ أدناه"
 
-#: .\application\forms.py:30 .\application\forms.py:34
-#: .\application\templates\application\complete_apply.html:26
-#: .\application\templates\application\complete_apply.html:56
-#, fuzzy
-#| msgid "job title"
-msgid "Job Title"
-msgstr "عنوان الوظيفة"
+#: .\account\views.py:179
+msgid "Personal Information"
+msgstr "معلومات شخصية"
 
-#: .\application\forms.py:41 .\application\forms.py:45
-#, fuzzy
-#| msgid "place name"
-msgid "Place Name"
-msgstr "الموقع"
+#: .\account\views.py:181
+msgid "Links Settings"
+msgstr "إعدادات الروابط"
 
-#: .\application\forms.py:52 .\application\forms.py:56
-#, fuzzy
-#| msgid "latitude"
-msgid "Latitude"
-msgstr "خطوط العرض"
+#: .\addon\models.py:14 .\addon\models.py:15
+msgid "global setting"
+msgstr "الإعداد العالمي"
 
-#: .\application\forms.py:60 .\application\forms.py:64
-#, fuzzy
-#| msgid "longitude"
-msgid "Longitude"
-msgstr "خطوط الطول"
+#: .\application\forms.py:43
+msgid "Deadline cannot be in past!"
+msgstr "الموعد النهائي لا يمكن أن يكون في الماضي!"
 
-#: .\application\forms.py:69
-#, python-format
-msgid ""
-"Make sure to put the right coordinates (follow this <a href=\"%s\">link</a>)"
-msgstr "تأكد من وضع الإحداثيات الصحيحة (اتبع هذا <a href=\"%s\"> الرابط </a>)"
-
-#: .\application\forms.py:70
-#, fuzzy
-#| msgid "deadline"
-msgid "Deadline"
-msgstr "تاريخ الانتهاء"
-
-#: .\application\forms.py:71
-msgid "Note that the end time will be at the midnight of the day you picked."
-msgstr "لاحظ أن وقت الانتهاء سيكون في منتصف ليل اليوم الذي اخترته."
-
-#: .\application\forms.py:77
-#, fuzzy
-#| msgid "Applications"
-msgid "Application Cover"
-msgstr "صورة الاستمارات"
-
-#: .\application\forms.py:89 .\application\forms.py:93
-#: .\application\forms.py:109 .\application\forms.py:118
-#: .\application\forms.py:127 .\application\forms.py:136
-#: .\application\forms.py:145
-#, fuzzy
-#| msgid "question text"
+#: .\application\forms.py:74 .\application\forms.py:78
+#: .\application\forms.py:94 .\application\forms.py:103
+#: .\application\forms.py:112 .\application\forms.py:121
+#: .\application\forms.py:130 .\application\models.py:189
 msgid "Question Text"
-msgstr "السؤال"
+msgstr "نص السؤال"
 
-#: .\application\forms.py:105
+#: .\application\forms.py:90 .\application\models.py:148
 msgid "Overall Skill"
 msgstr "المهارة العامة"
 
-#: .\application\forms.py:114
-#, fuzzy
-#| msgid "managing skill"
+#: .\application\forms.py:99 .\application\models.py:160
 msgid "Managing Skill"
-msgstr "المهارة الادارة"
+msgstr "إدارة المهارة"
 
-#: .\application\forms.py:123
-#, fuzzy
-#| msgid "leading skill"
+#: .\application\forms.py:108 .\application\models.py:154
 msgid "Leading Skill"
-msgstr "المهارة القيادة"
+msgstr "مهارة قيادية"
 
-#: .\application\forms.py:132
-#, fuzzy
-#| msgid "communication skill"
+#: .\application\forms.py:117 .\application\models.py:166
 msgid "Communication Skill"
-msgstr "المهارة التواصل"
+msgstr "مهارات الاتصال"
 
-#: .\application\forms.py:141
-#, fuzzy
-#| msgid "english skill"
+#: .\application\forms.py:126 .\application\models.py:142
 msgid "English Skill"
-msgstr "المهارة الانجليزية"
+msgstr "مهارة اللغة الإنجليزية"
 
-#: .\application\models.py:19
-msgid "title"
+#: .\application\models.py:23
+#: .\application\templates\application\search_bar.html:51
+msgid "Title"
 msgstr "عنوان"
 
-#: .\application\models.py:20
+#: .\application\models.py:26
 msgid "Title for application at least 4 Char"
-msgstr "عنوان للستمارة على الاقل 4 حروف"
+msgstr "عنوان التطبيق لا يقل عن 4 حرف"
 
-#: .\application\models.py:21
-msgid "body"
+#: .\application\models.py:29
+msgid "Body"
 msgstr "الجسم"
 
-#: .\application\models.py:21
+#: .\application\models.py:30
 msgid "You can use HTML tags to style your body."
-msgstr "يمكنك استخدام اوسمة HTML"
+msgstr "يمكنك استخدام علامات HTML لنمط جسمك."
 
-#: .\application\models.py:22
-msgid "job title"
-msgstr "عنوان الوظيفة"
+#: .\application\models.py:33
+#: .\application\templates\application\applies_complete.html:26
+#: .\application\templates\application\applies_complete.html:56
+msgid "Job Title"
+msgstr "عنوان وظيفي"
 
-#: .\application\models.py:23
-msgid "place name"
-msgstr "الموقع"
+#: .\application\models.py:37
+msgid "Work City/State"
+msgstr "مدينة / ولاية العمل"
 
-#: .\application\models.py:23
+#: .\application\models.py:39
 msgid "Not specified yet"
-msgstr "لم يتم تحديد ذلك"
+msgstr "غير محدد بعد"
 
-#: .\application\models.py:24
-msgid "latitude"
-msgstr "خطوط العرض"
+#: .\application\models.py:40
+msgid ""
+"Or you can place a Marker down in the map and automatically will add place "
+"name."
+msgstr "أو يمكنك وضع محدّد موقع في الخريطة وإضافة اسم المكان تلقائيًا."
 
-#: .\application\models.py:26
-msgid "longitude"
-msgstr "خطوط الطول"
+#: .\application\models.py:43
+msgid "Latitude"
+msgstr "خط العرض"
 
-#: .\application\models.py:28
-msgid "deadline"
-msgstr "تاريخ الانتهاء"
+#: .\application\models.py:49
+msgid "Mark any place down from the map to get Location Coordinates."
+msgstr "ضع علامة على أي مكان لأسفل من الخريطة للحصول على إحداثيات الموقع."
+
+#: .\application\models.py:52
+msgid "Longitude"
+msgstr "خط الطول"
+
+#: .\application\models.py:59
+#, python-format
+msgid ""
+"Make sure to put the right coordinates (follow this <a href=\"%s\" target="
+"\"_blank\">link</a>)"
+msgstr "تأكد من وضع الإحداثيات الصحيحة (اتبع هذا <a href=\"%s\" target="
+        "\"_blank\">رابط</a>"
 
 #: .\application\models.py:62
+msgid "deadline"
+msgstr "اخر موعد"
+
+#: .\application\models.py:63
+msgid "Note that the end time will be at the midnight of the day you picked."
+msgstr "لاحظ أن وقت الانتهاء سيكون في منتصف ليل اليوم الذي اخترته."
+
+#: .\application\models.py:83
 msgid "Only Company Accounts Can Create Applications."
-msgstr "فقط اصحاب الشركات يمكنهم اضافة استمارات"
+msgstr "يمكن فقط لحسابات الشركة إنشاء تطبيقات."
 
-#: .\application\models.py:64
+#: .\application\models.py:85
 msgid "Make Sure you did filled all the Data Information for your Account."
-msgstr "تاكد من ملىء جميع المعلومات عن حسابك"
+msgstr "تأكد من أنك ملأت جميع معلومات البيانات لحسابك."
 
-#: .\application\models.py:70
-msgid "english skill"
-msgstr "المهارة الانجليزية"
+#: .\application\models.py:92
+msgid "Application Cover"
+msgstr "صور مرفقة للاستمارة"
 
-#: .\application\models.py:72
-msgid "overall skill"
-msgstr "المهارة العامة"
+#: .\application\models.py:106
+msgid "Make sure to add only supported extension: png, jpg and jpeg"
+msgstr "تأكد من إضافة امتداد مدعوم فقط: png و jpg و jpeg"
 
-#: .\application\models.py:74
-msgid "leading skill"
-msgstr "المهارة القيادة"
+#: .\application\models.py:108 .\application\models.py:129
+msgid "Real Name"
+msgstr "الاسم الحقيقي"
 
-#: .\application\models.py:76
-msgid "managing skill"
-msgstr "المهارة الادارة"
+#: .\application\models.py:120
+msgid "Application File"
+msgstr "ملفات مرفقة للاستمارة"
 
-#: .\application\models.py:78
-msgid "communication skill"
-msgstr "المهارة التواصل"
+#: .\application\models.py:127
+msgid ""
+"Make sure to add only supported extension: txt, pdf, docx, xlsx, zip and rar"
+msgstr "تأكد من إضافة امتداد مدعوم فقط: txt و pdf و docx و xlsx و zip و rar"
 
-#: .\application\models.py:96
-msgid "question text"
-msgstr "السؤال"
+#: .\application\models.py:178
+msgid "applied to"
+msgstr "تقدم الى"
 
-#: .\application\models.py:115
+#: .\application\models.py:208
 msgid "choice text"
-msgstr "الاختيار"
+msgstr "نص الاختيار"
 
 #: .\application\models_addon.py:5
 msgid "High"
-msgstr "ممتاز"
+msgstr "عالي"
 
 #: .\application\models_addon.py:6
 msgid "Good"
@@ -671,171 +733,259 @@ msgstr "جيد"
 
 #: .\application\models_addon.py:7
 msgid "Medium"
-msgstr "حسن"
+msgstr "متوسط"
 
 #: .\application\models_addon.py:8
 msgid "Low"
-msgstr "قابل للتطوٌر"
+msgstr "ضعيف"
 
-#: .\application\templates\application\add_question.html:20
-#: .\application\templates\application\edit.html:21
-#, fuzzy
-#| msgid "Boost Your Application"
-msgid "(This view to edit your Application)"
-msgstr "ارفع استمارتك"
+#: .\application\templates\application\application_details.html:17
+msgid "Home"
+msgstr "الصفحة الرئيسية"
 
-#: .\application\templates\application\add_question.html:58
-#: .\application\templates\application\add_question.html:70
-msgid "Text Answer"
-msgstr "الجواب (اذا وجد)"
-
-#: .\application\templates\application\add_question.html:65
-msgid "Multiple Choice"
-msgstr "اجوبة متعددة"
-
-#: .\application\templates\application\complete_apply.html:5
-msgid "Apply for"
-msgstr "قم بتقديم الطلب"
-
-#: .\application\templates\application\complete_apply.html:5
-#, fuzzy
-#| msgid "company name"
-msgid "Company View"
-msgstr "اسم الشركة"
-
-#: .\application\templates\application\complete_apply.html:13
-msgid "This is"
-msgstr "هذا"
-
-#: .\application\templates\application\complete_apply.html:13
-#, fuzzy
-#| msgid "Boost Your Application"
-msgid "apply for application"
-msgstr "ارفع استمارتك"
-
-#: .\application\templates\application\complete_apply.html:20
-#, fuzzy
-#| msgid "First Name"
-msgid "Full Name"
-msgstr "الاسم الاول"
-
-#: .\application\templates\application\complete_apply.html:23
-#: .\application\templates\application\complete_apply.html:28
-#: .\application\templates\application\complete_apply.html:33
-#: .\application\templates\application\complete_apply.html:38
-msgid "Not editable"
-msgstr "غير قابل للتعديل"
-
-#: .\application\templates\application\complete_apply.html:31
-msgid "City"
-msgstr "المدينة"
-
-#: .\application\templates\application\complete_apply.html:36
-#, fuzzy
-#| msgid "country"
-msgid "Country"
-msgstr "دولة"
-
-#: .\application\templates\application\complete_apply.html:43
-#, fuzzy
-#| msgid "nationality"
-msgid "Nationality"
-msgstr "جنسية"
-
-#: .\application\templates\application\complete_apply.html:48
-msgid "SSID"
-msgstr "الرقم الوطني"
-
-#: .\application\templates\application\complete_apply.html:52
-#, fuzzy
-#| msgid "Applications"
-msgid "Application Title"
-msgstr "عنوان الاستمارات"
-
-#: .\application\templates\application\complete_apply.html:60
-msgid "Place"
-msgstr "الموقع"
-
-#: .\application\templates\application\complete_apply.html:70
-msgid "Complete And Add Worker Skills"
-msgstr "احفظ وقم بأضافة مهارات الموظف"
-
-#: .\application\templates\application\index.html:5
-#: .\application\templates\application\index.html:58
-#: .\application\templates\application\single_application.html:19
+#: .\application\templates\application\application_details.html:20
+#: .\application\templates\application\index_grid.html:5
+#: .\application\templates\application\index_grid.html:53
+#: .\application\templates\application\index_list.html:5
+#: .\application\templates\application\index_list.html:58
 #: .\templates\base\navbar.html:10
 msgid "Applications"
 msgstr "الاستمارات"
 
-#: .\application\templates\application\index.html:17
-msgid "Sort by:"
-msgstr "رتب حسب:"
+#: .\application\templates\application\application_details.html:23
+msgid "Application No."
+msgstr "استمارة رقم"
 
-#: .\application\templates\application\index.html:19
+#: .\application\templates\application\application_details.html:48
+msgid "Description"
+msgstr "وصف"
+
+#: .\application\templates\application\application_details.html:59
+msgid "Task Files"
+msgstr "ملفات المهام"
+
+#: .\application\templates\application\application_details.html:74
+msgid "More Details"
+msgstr "المزيد من التفاصيل"
+
+#: .\application\templates\application\application_details.html:109
+msgid "Boost Your Application"
+msgstr "عزز استمارتك"
+
+#: .\application\templates\application\application_details.html:110
+msgid "Show Your Application for the better."
+msgstr " اجعل الجميع يرى استمارتك "
+
+#: .\application\templates\application\application_details.html:120
+msgid "Days"
+msgstr "ايام"
+
+#: .\application\templates\application\application_details.html:124
+msgid "Boost &dollar;1,200"
+msgstr "مقابل &dollar;1,200"
+
+#: .\application\templates\application\application_details.html:132
+msgid "More About This Application"
+msgstr "المزيد عن هذا التطبيق"
+
+#: .\application\templates\application\application_details.html:179
+msgid "APPLY NOW"
+msgstr "قدم الآن"
+
+#: .\application\templates\application\application_details.html:182
+msgid "You have applied to this application before, Thank you!"
+msgstr "لقد تقدمت بطلب لهذا الطلب من قبل ، شكرا لك!"
+
+#: .\application\templates\application\application_details.html:185
+msgid ""
+"You cannot Apply to this Application due to the incomplete Account "
+"Information"
+msgstr "لا يمكنك التقديم على هذا التطبيق بسبب عدم اكتمال معلومات الحساب"
+
+#: .\application\templates\application\application_details.html:186
+msgid "click here"
+msgstr "انقر هنا"
+
+#: .\application\templates\application\application_details.html:186
+msgid "to change them!"
+msgstr "لتغييرها!"
+
+#: .\application\templates\application\application_details.html:192
+msgid ""
+"You have the power to Create one, it will take only 5 minute, go for it!"
+msgstr "لديك القدرة على إنشاء واحد ، وسيستغرق الأمر 5 دقائق فقط."
+
+#: .\application\templates\application\application_details.html:194
+#: .\application\templates\application\application_new.html:5
+#: .\application\templates\application\index_grid.html:36
+#: .\application\templates\application\index_list.html:35
+msgid "Add New Application"
+msgstr "إضافة تطبيق جديد"
+
+#: .\application\templates\application\application_edit.html:174
+#: .\application\templates\application\application_new.html:166
+msgid "address not found"
+msgstr "لم يتم العثور على العنوان"
+
+#: .\application\templates\application\application_edit.html:212
+#: .\application\templates\application\application_new.html:206
+msgid "Write your Application Details"
+msgstr "اكتب تفاصيل طلبك"
+
+#: .\application\templates\application\application_new.html:20
+msgid "Add New Application Form"
+msgstr "إضافة نموذج طلب جديد"
+
+#: .\application\templates\application\application_new.html:100
+msgid "Add Application"
+msgstr "إضافة تطبيق"
+
+#: .\application\templates\application\applies_complete.html:5
+msgid "Apply for"
+msgstr "التقدم بطلب للحصول"
+
+#: .\application\templates\application\applies_complete.html:5
+msgid "Company View"
+msgstr ""
+
+#: .\application\templates\application\applies_complete.html:13
+msgid "This is"
+msgstr "هذا هو"
+
+#: .\application\templates\application\applies_complete.html:13
+msgid "apply for application"
+msgstr "تقديم طلب"
+
+#: .\application\templates\application\applies_complete.html:20
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+#: .\application\templates\application\applies_complete.html:23
+#: .\application\templates\application\applies_complete.html:28
+#: .\application\templates\application\applies_complete.html:33
+#: .\application\templates\application\applies_complete.html:38
+msgid "Not editable"
+msgstr "غير قابل للتعديل"
+
+#: .\application\templates\application\applies_complete.html:52
+msgid "Application Title"
+msgstr "عنوان الاستمارة"
+
+#: .\application\templates\application\applies_complete.html:60
+#: .\application\templates\application\search_bar.html:65
+msgid "Place"
+msgstr "مكان"
+
+#: .\application\templates\application\applies_complete.html:70
+msgid "Complete And Add Worker Skills"
+msgstr "أكمل وأضف مهارات العمال"
+
+#: .\application\templates\application\applies_show.html:7
+msgid "All Applies for"
+msgstr "جميع المتقدمين لاستمارة"
+
+#: .\application\templates\application\applies_show.html:28
+msgid "Apples ID"
+msgstr "رقم التقديم"
+
+#: .\application\templates\application\applies_show.html:29
+msgid "User ID"
+msgstr "رقم المتقدم"
+
+#: .\application\templates\application\applies_show.html:30
+msgid "Name"
+msgstr "اسم المتقدم"
+
+#: .\application\templates\application\applies_show.html:31
+msgid "Take Question?"
+msgstr "الاسئلة التي تم الاجابة عليها"
+
+#: .\application\templates\application\applies_show.html:32
+msgid "Status"
+msgstr "الحالة"
+
+#: .\application\templates\application\applies_show.html:50
+msgid "There is no answered Question"
+msgstr "لا يوجد سؤال مجاب عنه"
+
+#: .\application\templates\application\applies_show.html:56
+msgid "Completed Apply"
+msgstr "استمارة مكتملة"
+
+#: .\application\templates\application\applies_show.html:59
+msgid "Uncompleted Apply"
+msgstr "استمارة غير مكتملة"
+
+#: .\application\templates\application\index_grid.html:17
+#: .\application\templates\application\index_list.html:17
+msgid "Sort by:"
+msgstr "صنف حسب:"
+
+#: .\application\templates\application\index_grid.html:19
+#: .\application\templates\application\index_list.html:19
 msgid "A-Z"
 msgstr "أ-ي"
 
-#: .\application\templates\application\index.html:20
+#: .\application\templates\application\index_grid.html:20
+#: .\application\templates\application\index_list.html:20
 msgid "Z-A"
 msgstr "ي-أ"
 
-#: .\application\templates\application\index.html:21
+#: .\application\templates\application\index_grid.html:21
+#: .\application\templates\application\index_list.html:21
 msgid "Recent"
-msgstr "اخر التحديثات"
+msgstr "الأخيرة"
 
-#: .\application\templates\application\index.html:22
+#: .\application\templates\application\index_grid.html:22
+#: .\application\templates\application\index_list.html:22
 msgid "Reviews"
-msgstr "اكثر مشاهدة"
+msgstr "المراجعات"
 
-#: .\application\templates\application\index.html:26
+#: .\application\templates\application\index_grid.html:26
+#: .\application\templates\application\index_list.html:26
 msgid "Result(s)"
-msgstr "نتائج"
+msgstr "النتائج)"
 
-#: .\application\templates\application\index.html:34
-#: .\application\templates\application\new.html:5
-#, fuzzy
-#| msgid "Applications"
-msgid "Add New Application"
-msgstr "اضف الاستمارات جديدة"
-
-#: .\application\templates\application\index.html:84
+#: .\application\templates\application\index_grid.html:92
+#: .\application\templates\application\index_list.html:81
 msgid "Created At:"
-msgstr "تاريخ الاضافة:"
+msgstr "أنشئت في:"
 
-#: .\application\templates\application\index.html:89
-#, fuzzy
-#| msgid "deadline"
+#: .\application\templates\application\index_grid.html:99
+#: .\application\templates\application\index_list.html:88
 msgid "Deadline At:"
-msgstr "تاريخ الانتهاء:"
+msgstr "الموعد النهائي:"
 
-#: .\application\templates\application\index.html:107
-#: .\application\templates\application\index.html:119
+#: .\application\templates\application\index_grid.html:117
+#: .\application\templates\application\index_list.html:113
 msgid "Read More..."
-msgstr "أقرء المزيد..."
+msgstr "قراءة المزيد ..."
 
-#: .\application\templates\application\index.html:131
+#: .\application\templates\application\index_grid.html:126
+#: .\application\templates\application\index_list.html:123
 msgid "0 Results !!!"
-msgstr "0 نتائج!!!"
+msgstr "0 النتائج !!!"
 
-#: .\application\templates\application\index.html:133
+#: .\application\templates\application\index_grid.html:128
+#: .\application\templates\application\index_list.html:125
 msgid "Sorry there is no Applications to show."
-msgstr "للأسف, لا يوجد استمارت لعرضها في هذه الصفحة."
+msgstr "آسف لا توجد تطبيقات لإظهارها."
 
-#: .\application\templates\application\new.html:20
-#, fuzzy
-#| msgid "Applications"
-msgid "Add New Application Form"
-msgstr "اضافة استمارة جديدة"
+#: .\application\templates\application\question_add.html:26
+msgid "Add Questions View"
+msgstr ""
 
-#: .\application\templates\application\new.html:55
-#, fuzzy
-#| msgid "Applications"
-msgid "Add Application"
-msgstr "اضافة الاستمارات"
+#: .\application\templates\application\question_add.html:74
+msgid "Text Answer"
+msgstr "إجابة نصية"
+
+#: .\application\templates\application\question_add.html:81
+msgid "Multiple Choice"
+msgstr "متعدد الخيارات"
 
 #: .\application\templates\application\search_bar.html:10
 msgid "Find A Job"
-msgstr "ابحث عن وظيفتك"
+msgstr "متعدد الخيارات..."
 
 #: .\application\templates\application\search_bar.html:11
 msgid "With WebsiteName you can quickly find your Dream Job!"
@@ -845,209 +995,88 @@ msgstr "مع موقعنا يمكن ان تجد وظيفة احلامك وبأق�
 msgid "Search topics or keywords"
 msgstr "ابحث عن الوظيفة الموضوعات بالاسفل أو الكلمات الرئيسية"
 
-#: .\application\templates\application\search_bar.html:41
-msgid "By All"
-msgstr "الكل"
+#: .\application\templates\application\search_bar.html:39
+msgid "Search by:"
+msgstr "بحث بواسطة:"
 
-#: .\application\templates\application\search_bar.html:48
-#, fuzzy
-#| msgid "title"
-msgid "By Title"
-msgstr "عنوان"
+#: .\application\templates\application\search_bar.html:44
+msgid "All"
+msgstr "الجميع"
 
-#: .\application\templates\application\search_bar.html:55
-msgid "By Job"
-msgstr "وظيفة"
+#: .\application\templates\application\search_bar.html:58
+msgid "Job"
+msgstr "الوظيفة"
 
-#: .\application\templates\application\search_bar.html:62
-msgid "By Place"
-msgstr "موقع"
+#: .\application\templates\application\search_bar.html:72
+msgid "Deadline Month"
+msgstr "شهر الموعد النهائي"
 
-#: .\application\templates\application\search_bar.html:69
-msgid "By Deadline Month"
-msgstr "شهر تاريخ الانتهاء"
-
-#: .\application\templates\application\show_applies.html:7
-msgid "All Applies for"
-msgstr "جميع المتقدمين لل"
-
-#: .\application\templates\application\show_applies.html:28
-msgid "Apples ID"
-msgstr "رقم التقديم"
-
-#: .\application\templates\application\show_applies.html:29
-msgid "User ID"
-msgstr "رقم المستخدم"
-
-#: .\application\templates\application\show_applies.html:30
-#, fuzzy
-#| msgid "Last Name"
-msgid "Name"
-msgstr "الاسم"
-
-#: .\application\templates\application\show_applies.html:31
-msgid "Take Question?"
-msgstr "الاسئلة"
-
-#: .\application\templates\application\show_applies.html:32
-msgid "Status"
-msgstr "الحالة (هل تم تقيم ام لا)"
-
-#: .\application\templates\application\show_applies.html:50
-msgid "There is no answered Question"
-msgstr "لا يوجد اسئلة تم الاجابة عنها"
-
-#: .\application\templates\application\show_applies.html:56
-msgid "Completed Apply"
-msgstr "منتهي"
-
-#: .\application\templates\application\show_applies.html:59
-msgid "Uncompleted Apply"
-msgstr "غير منتهي"
-
-#: .\application\templates\application\single_application.html:16
-msgid "Home"
-msgstr "الرئيسية"
-
-#: .\application\templates\application\single_application.html:22
-msgid "Application No."
-msgstr "رقم الاستمارة"
-
-#: .\application\templates\application\single_application.html:30
-#, fuzzy
-#| msgid "Registration"
-msgid "Description"
-msgstr "وصف"
-
-#: .\application\templates\application\single_application.html:40
-msgid "More Details"
-msgstr "المزيد من المعلومات"
-
-#: .\application\templates\application\single_application.html:75
-msgid "Boost Your Application"
-msgstr "ارفع استمارتك"
-
-#: .\application\templates\application\single_application.html:76
-msgid "Show Your Application for the better."
-msgstr "اجعل الجميع يرى استمارتك"
-
-#: .\application\templates\application\single_application.html:87
-msgid "Days"
-msgstr "ايام"
-
-#: .\application\templates\application\single_application.html:91
-msgid "Boost &dollar;1,200"
-msgstr "ادفع &dollar;1200"
-
-#: .\application\templates\application\single_application.html:103
-#, fuzzy
-#| msgid "Boost Your Application"
-msgid "More About This Application"
-msgstr "ارفع استمارتك"
-
-#: .\application\templates\application\single_application.html:149
-msgid "APPLY NOW"
-msgstr "تقدم الان"
-
-#: .\application\templates\application\single_application.html:152
-msgid ""
-"You cannot Apply to this Application due to the incomplete Account "
-"Information"
-msgstr "لا يمكنك التقديم على هذا التطبيق بسبب عدم اكتمال معلومات الحساب"
-
-#: .\application\templates\application\single_application.html:153
-msgid "click here"
-msgstr "أضغط هنا"
-
-#: .\application\templates\application\single_application.html:153
-msgid "to change them!"
-msgstr "لتغييرهم"
-
-#: .\application\views.py:38
+#: .\application\views.py:50
 msgid "You can't use letters while searching for month!"
-msgstr ""
-
-#: .\application\views.py:61
-msgid "Sorry You have applied to this application, you can do it once!"
 msgstr "لا يمكنك استخدام الحروف أثناء البحث عن شهر!"
 
-#: .\application\views.py:93
-#, fuzzy
-#| msgid "Email or Password is not correct please try again!"
+#: .\application\views.py:73
+msgid "Sorry You have applied to this application, you can do it once!"
+msgstr "عذرا لقد تقدمت بطلب لهذا الاستمارة ، يمكنك القيام بذلك مرة واحدة!"
+
+#: .\application\views.py:80
+msgid "We have placed your apply, will notify you when company review it."
+msgstr "لقد قدمنا طلبك ، وسوف نخطرك عندما تقوم الشركة بمراجعته."
+
+#: .\application\views.py:118
 msgid "Sorry something went wrong, please try again!"
-msgstr "البريد الالكتورني او كلمة السر غير صحيحه, ارجاء اعادة المحاولة!"
+msgstr "عذرًا ، حدث خطأ ما ، يرجى المحاولة مرة أخرى!"
 
-#: .\application\views.py:94
-msgid "You can't add application"
-msgstr "لا يمكنك إضافة تطبيق"
+#: .\application\views.py:120
+msgid "You are not Company so you can add Application"
+msgstr "أنت لست شركة حتى تتمكن من إضافة التطبيق"
 
-#: .\templates\base\footer.html:4
+#: .\application\views.py:142
+msgid "Question Added!"
+msgstr "تمت إضافة السؤال!"
+
+#: .\application\views.py:149 .\application\views.py:172
+#: .\application\views.py:192 .\application\views.py:218
+#: .\application\views.py:231
+msgid "Not your application!"
+msgstr "ليس تطبيقك!"
+
+#: .\application\views.py:168
+msgid "Application Updated"
+msgstr "تم تحديث التطبيق"
+
+#: .\templates\base\footer.html:6
 msgid "Copyright &copy; Your Website 2020"
-msgstr ""
+msgstr "حقوق التأليف والنشر &copy; موقع الويب الخاص بك 2020"
 
-#: .\templates\base\navbar.html:13
-msgid "About"
-msgstr "من نحن"
-
-#: .\templates\base\navbar.html:16
-msgid "Contact Us"
-msgstr "تواصل معنا"
-
-#: .\templates\base\navbar.html:37
+#: .\templates\base\navbar.html:28
 msgid "Registration"
-msgstr "تسجيل حساب جديد"
+msgstr "التسجيل"
 
 #: .\templates\base\navbar.html:73
 msgid "Account Information"
 msgstr "معلومات الحساب"
 
-#: .\templates\base\navbar.html:107
+#: .\templates\base\navbar.html:103
 msgid "Search..."
 msgstr "بحث..."
 
-#: .\templates\base\navbar.html:120
-msgid "General"
-msgstr "عام"
+#: .\templates\base\navbar.html:116
+msgid "Settings"
+msgstr "الإعدادات"
 
-#: .\templates\base\navbar.html:126
-msgid "Dashboard"
-msgstr "لوحة القيادة"
-
-#: .\templates\base\navbar.html:127
+#: .\templates\base\navbar.html:121
 msgid "New"
 msgstr "جديد"
 
-#: .\templates\base\navbar.html:129
+#: .\templates\base\navbar.html:123
 msgid "Beta"
-msgstr "تجريبي"
+msgstr "بيتا"
 
-#: .\templates\base\navbar.html:134
-msgid "Subdomain"
-msgstr ""
-
-#: .\templates\base\navbar.html:142
-msgid "Settings"
-msgstr "الاعدادات"
-
-#: .\templates\base\navbar.html:146
-msgid "Update Profile Information"
-msgstr "تحديث معلومات الملف الشخصي"
-
-#: .\templates\base\navbar.html:155
+#: .\templates\base\navbar.html:141
 msgid "More"
-msgstr "المزيد"
+msgstr "أكثر"
 
-#: .\templates\base\navbar.html:159
+#: .\templates\base\navbar.html:145
 msgid "Logout"
-msgstr "تجسيل الخروج"
-
-#~ msgid "User is valid, active and authenticated"
-#~ msgstr ""
-#~ "المستخدم ليس نشط, الرجاء التأكد من البريد الالكتورني الذي تم ارسالة لك من "
-#~ "قبل"
-
-#~ msgid "Remember Password"
-#~ msgstr "تذكر كلمة السر"
-
-#~ msgid "Benefits"
-#~ msgstr "الفوائد"
+msgstr "تسجيل خروج"

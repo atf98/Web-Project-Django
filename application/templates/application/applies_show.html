@@ -1,0 +1,101 @@
+{% extends 'base/base.html' %}
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_language_info for LANGUAGE_CODE as CURR_LANGUAGE_CODE %}
+
+{% block title %}
+    {% trans 'All Applies for' %} {{ application.title }}
+{% endblock %}
+
+
+{% block content %}
+    {% include 'base/navbar.html' %}
+    <div class="container">
+        <div class="row">
+            <h1></h1>
+            <div class="container pt-4 pb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            {{ application.title }}
+                        </h4>
+                    </div>
+                    <div class="py-4">
+                        <div class="table-responsive">
+                            <table id="data-table" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>{% trans 'Apples ID' %}</th>
+                                    <th>{% trans 'User ID' %}</th>
+                                    <th>{% trans 'Name' %}</th>
+                                    <th>{% trans 'Take Question?' %}</th>
+                                    <th>{% trans 'Status' %}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for apply in applies %}
+                                    <tr class="table-row-hovered" {% if not apply.is_all_filled %} onclick="goToApply({{ apply.id }}){% endif %}">
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ apply.user.id }}</td>
+                                        <td>{{ apply.user.worker.get_full_name }}</td>
+                                        <td>
+                                            {% if takers %}
+                                                {% for taker in takers %}
+                                                    {% if taker.apply.id == apply.id %}
+                                                        <p><span class="text-muted">{{ taker.question.question_text }}</span>
+                                                        {{ taker.answer }}</p>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                {% trans 'There is no answered Question' %}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            {% if apply.is_all_filled %}
+                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                      title="{% trans 'Completed Apply' %}" class="material-icons bg-success text-white">done</span>
+                                            {% else %}
+                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                      title="{% trans 'Uncompleted Apply' %}" class="material-icons bg-danger text-white">clear</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'base/footer.html' %}
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'js/datatable.bootstrap4.js' %}"></script>
+
+    {% if CURR_LANGUAGE_CODE.bidi %}
+        <script>
+            $('#data-table').dataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Arabic.json"
+                }
+            });
+        </script>
+
+    {% else %}
+        <script>
+            $('#data-table').dataTable();
+        </script>
+
+    {% endif %}
+    <script>
+        function goToApply(id=null) {
+            window.location.replace("/application/complete-apply/"+id+"/");
+        };
+    </script>
+
+{% endblock %}

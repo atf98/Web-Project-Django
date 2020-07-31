@@ -2,87 +2,72 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from application.models_addon import CRITERIA_CHOICES
-from application.models import Application, Apply, Question, Choice
-
-LINK = 'https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en#6387158'
+from application.models import Application, Apply, Question, Choice, ApplicationImage, ApplicationFile
+from datetime import datetime
 
 
 class ApplicationNewForm(forms.ModelForm):
-    title = forms.CharField(label=_('Title'), required=True,
-                            widget=forms.TextInput(attrs={
-                                'id': 'TitleInput',
-                                'class': 'form-control',
-                                'placeholder': _('Title'),
-                                'autofocus': 'autofocus',
-                            }),
-                            error_messages={
-                                'required': _('Make Sure to fill this input.')
-                            })
-    body = forms.CharField(label=_('Body'), required=True,
-                           widget=forms.Textarea(attrs={
-                               'id': 'BodyInput',
-                               'class': 'form-control',
-                               'placeholder': _('Body'),
-                           }),
-                           error_messages={
-                               'required': _('Make Sure to fill this input.')
-                           })
-    job_title = forms.CharField(label=_('Job Title'), required=True,
-                                widget=forms.TextInput(attrs={
-                                    'id': 'JobTitleInput',
-                                    'class': 'form-control',
-                                    'placeholder': _('Job Title'),
-                                    'data_column': '6',
-                                    'first': 'true'
-                                }),
-                                error_messages={
-                                    'required': _('Make Sure to fill this input.')
-                                })
-    place_name = forms.CharField(label=_('Place Name'), required=True,
-                                 widget=forms.TextInput(attrs={
-                                     'id': 'PlaceNameInput',
-                                     'class': 'form-control',
-                                     'placeholder': _('Place Name'),
-                                     'data_column': '6',
-                                     'last': 'true'
-                                 }),
-                                 error_messages={
-                                     'required': _('Make Sure to fill this input.')
-                                 })
-    latitude = forms.DecimalField(label=_('Latitude'), required=False,
-                                  widget=forms.TextInput(attrs={
-                                      'id': 'LatitudeInput',
-                                      'class': 'form-control',
-                                      'placeholder': _('Latitude'),
-                                      'data_column': '6',
-                                      'first': 'true'
-                                  }))
-    longitude = forms.DecimalField(label=_('Longitude'), required=False,
-                                   widget=forms.TextInput(attrs={
-                                       'id': 'LongitudeInput',
-                                       'class': 'form-control',
-                                       'placeholder': _('Longitude'),
-                                       'data_column': '6',
-                                       'last': 'true'
-                                   }),
-                                   help_text=_(
-                                       'Make sure to put the right coordinates (follow this <a href="%s">link</a>)' % LINK))
-    deadline = forms.DateTimeField(label=_('Deadline'), required=True,
-                                   help_text=_('Note that the end time will be at the midnight of the day you picked.'),
-                                   widget=forms.DateTimeInput(attrs={
-                                       'id': 'DeadlineInput',
-                                       'class': 'form-control datepicker',
-                                       'type': 'date',
-                                   }))
-    cover_pic = forms.ImageField(label=_('Application Cover'),
-                                 widget=forms.FileInput(attrs={
-                                     'id': 'ApplicationCoverInput',
-                                     'class': 'form-control',
-                                 }))
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget = forms.TextInput(
+            attrs={'class': 'form-control', 'autofocus': 'autofocus'}
+        )
+        self.fields['body'].widget = forms.Textarea(
+            attrs={'class': 'form-control', 'id': 'BodyInput', }
+        )
+        self.fields['job_title'].widget = forms.TextInput(
+            attrs={'class': 'form-control', 'data_column': '6', 'first': 'true', }
+        )
+        self.fields['place_name'].widget = forms.TextInput(
+            attrs={'class': 'form-control', 'data_column': '6', 'last': 'true', }
+        )
+        self.fields['latitude'].widget = forms.NumberInput(
+            attrs={'class': 'form-control', 'data_column': '6', 'pattern': "[0-9]+([,][0-9]{1,2})?", 'first': 'true',
+                   'step': "0.000000000000000001", 'lang': 'en'}
+        )
+        self.fields['longitude'].widget = forms.NumberInput(
+            attrs={'class': 'form-control', 'data_column': '6', 'pattern': "[0-9]+([,][0-9]{1,2})?", 'last': 'true',
+                   'step': "0.000000000000000001", 'lang': 'en'}
+        )
+        self.fields['deadline'].widget = forms.DateTimeInput(
+            attrs={'class': 'form-control datepicker', 'type': 'date', }
+        )
 
     class Meta:
         model = Application
-        fields = ['title', 'cover_pic', 'body', 'job_title', 'place_name', 'latitude', 'longitude', 'deadline']
+        fields = ['title', 'body', 'job_title', 'place_name', 'deadline', 'latitude', 'longitude']
+
+    def clean_deadline(self):
+        deadline = self.cleaned_data.get('deadline')
+        if datetime.strptime(str(deadline)[:19], '%Y-%m-%d %H:%M:%S') < datetime.today():
+            raise forms.ValidationError(_('Deadline cannot be in past!'))
+        return deadline
+
+
+class ApplicationImageForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['image'].widget = forms.FileInput(
+            attrs={'class': 'form-control', 'multiple': ''}
+        )
+        self.fields['image'].required = False
+
+    class Meta:
+        model = ApplicationImage
+        fields = ['image']
+
+
+class ApplicationFileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['file'].widget = forms.FileInput(
+            attrs={'class': 'form-control wrapper js', 'multiple': ''}
+        )
+        self.fields['file'].required = False
+
+    class Meta:
+        model = ApplicationFile
+        fields = ['file']
 
 
 class QuestionAddForm(forms.ModelForm):
@@ -151,4 +136,3 @@ class ApplyCompleteForm(forms.ModelForm):
     class Meta:
         model = Apply
         fields = ['overall_skill', 'managing_skill', 'leading_skill', 'communication_skill', 'english_skill']
-

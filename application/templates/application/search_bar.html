@@ -36,37 +36,40 @@
 
                 </div>
                 <div class="form-check-inline">
+                    {% trans 'Search by:' %}
+                </div>
+                <div class="form-check-inline">
                     <label class="form-check-label">
                         <input type="radio" class="form-check-input" name="search_option" checked value="all">
-                        {% trans 'By All' %}
+                        {% trans 'All' %}
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label">
                         <input type="radio" class="form-check-input" name="search_option"
                                {% if opt == 'title' %}checked{% endif %} value="title">
-                        {% trans 'By Title' %}
+                        {% trans 'Title' %}
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label">
                         <input type="radio" class="form-check-input" name="search_option"
                                {% if opt == 'job' %}checked{% endif %} value="job">
-                        {% trans 'By Job' %}
+                        {% trans 'Job' %}
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label">
                         <input type="radio" class="form-check-input" name="search_option"
                                {% if opt == 'place' %}checked{% endif %} value="place">
-                        {% trans 'By Place' %}
+                        {% trans 'Place' %}
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label">
                         <input type="radio" class="form-check-input" name="search_option"
                                {% if opt == 'month' %}checked{% endif %} value="month">
-                        {% trans 'By Deadline Month' %}
+                        {% trans 'Deadline Month' %}
                     </label>
                 </div>
             </form>
